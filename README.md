@@ -193,3 +193,50 @@ Naming rules:
 You can use two conventions for naming in JavaScript, CamelCase(anIdentifierName), SnakeCase(an_identifier_name). CamelCase is more popular, but you can use any if you are consistent with it.
 
 Primitive Types and Objects
+
+In JavaScript, values are either primitive types or objects. Primitive values are immutable, objects are not.
+There are 6 primitive types in JavaScript:
+
+  * Number
+  * String
+  * Boolean
+  * Undefined
+  * Null
+  * Symbol
+
+Objects are used to construct custom data. Some built in object types are:
+
+  * Array
+  * Date
+  * Regex
+  ...
+
+Special Characters
+
+  * \n - new line
+  * \t - tab
+  * \r - carriage return
+  * \' - single quote
+  * \" - double quote
+  * \$ - dollar sign
+  * \\ - backslash
+
+Template Strings
+
+Up until ES6, the only way to represent values in a string was string concatenation.
+`let temp = -27`
+`"Current temperature is: " + temp`
+ES6 introduces string templates, also known as string interpolation.
+`"Current temperature is: ${5}"`
+
+Booleans
+
+Value type that has only to values, true or false.
+
+Null and Undefined
+
+JavaScript has two special types, null and undefined. null has only one possible
+value (null), and undefined has only one possible value (undefined). Both null and
+undefined represent something that doesn’t exist
+
+The general rule of thumb is that null is a data type that is available to programmers and undefined should be reserved for JavaScript itself, to indicate that something hasn’t been given a value yet.
