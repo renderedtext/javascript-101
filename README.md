@@ -40,7 +40,7 @@ public folder containes all frontend files(files that are used by browsers)
 public/es6 containes all frontend JavaScript files written in ES6 standard. Some people use public/src instead.
 public/dist containes all transcompiled JavaScript files for fron tend.
 
-Package management npm
+Package Management npm
 
 Npm is used for installing or buidling tools and comes bundled with Node.js.
 Some of the most frequent npm commands are:
@@ -128,4 +128,68 @@ ESLint website.
 Now, we can write ES6, transcompile it to portable ES5, and lint our code to
 improve it.
 
-Conclusion
+Literals, Variables and Constants
+
+A variable is essentially a named value, and as the name implies, the value can change
+at any time.
+
+```javascript
+  let a = 10;
+  let b; //undefined
+  let a = 3, b, c = 4;
+```
+
+`let` is a new keyword in ES6 which declares a block scope variable, unlike `var` in ES5, which declared a function scope variable. Variable declared with `let` can change it's value just like `var`, but it can't be accessed before it's declaration, which can be done with variables declared with `var`.
+
+A constant also holds a value, but unlike a variable, can’t be changed
+after initialization. Usually, they are named with all capital letters and underscores.
+
+```javascript
+  const MAX_TEMP = 5;
+  let curTemp = 5;
+
+  MAX_TEMP = 7;     //invalid
+  curTemp = 7;      //valid
+```
+
+If a constant is an object, you can change it's attributes, but you can't change the reference to the object, because the value of the constant is the reference.
+
+```javascript
+  //valid
+  const duck = {
+    name: "Donald",
+    species: "duck"
+  };
+  duck.name = "Dolan";
+
+  //invalid
+  const duck = {
+    name: "Donald",
+    species: "duck"
+  };
+  duck = {};
+
+```
+
+Literals are fixed values that can be given to variables but don't need to. You can use literals anywhere a value is expected.
+
+```javascript
+  15
+  "some string"
+  let a = 7;
+  let text = "string given to variable";
+```
+
+Identifiers
+
+Names of variables, constants and functions are called identifiers.
+Naming rules:
+
+  * Identifiers must start with a letter, dollar sign $, or underscore \_.
+  * Identifiers consist of letters, numbers, the dollar sign $, and underscore \_.
+  * Unicode characters are allowed (for example, π or ö).
+  * Identifiers cannot be a reserved word.
+
+You can use two conventions for naming in JavaScript, CamelCase(anIdentifierName), SnakeCase(an_identifier_name). CamelCase is more popular, but you can use any if you are consistent with it.
+
+Primitive Types and Objects
