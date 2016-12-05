@@ -240,3 +240,82 @@ value (null), and undefined has only one possible value (undefined). Both null a
 undefined represent something that doesn’t exist
 
 The general rule of thumb is that null is a data type that is available to programmers and undefined should be reserved for JavaScript itself, to indicate that something hasn’t been given a value yet.
+
+Objects
+
+Objects represent multiple or complex values, and can change over their lifetime. In
+essence, an object is a container, and the contents of that container can change over
+time (it’s the same object with different contents).
+
+```javascript
+  //empty object
+  const obj = {}
+```
+
+Adding properties to objects
+
+```javascript
+  let obj = {
+    property1: "value1",
+    property2: "value2"
+  };
+
+  obj = {};
+  obj.propery1 = "value1";
+
+  obj = {};
+  obj["property1"] = "value1";
+  obj["not a valid identifier"] = "value2"
+
+  //you can also use computed member access operator for symbol properties
+  const SIZE = Symbol();
+  obj[SIZE] = 10;
+
+  //objects can contain functions
+  obj.jump = function() { console.log("jumped") ;}
+  //call function
+  obj.jump();
+
+  //delete a property from object
+  delete obj.property1;
+```
+
+Arrays
+
+In JavaScript, arrays are a special type of object. Unlike regular objects, array contents have a natural order (element 0 will always come before element 1), and keys are numeric and sequential.
+
+```javascript
+  //creating arrays
+  const arr1 = [1, 2, 3];
+  const arr2 = [{ property1: "value1", property2: "value2" }, { property1: "value11", property2: "value21" }];
+  const arr3 = [
+    "String1",
+    "String2"
+  ];
+  const arr4 = [
+    [1, 2 ,3],
+    [4, 5, 6]
+  ];
+```
+You can access property length of arrays `arr.length;`.
+Access object elements by index. `arr[0]; arr[0] =  5; arr[arr.length - 1];`
+
+Dates
+
+Date and time are represented by the Date object.
+
+```javascript
+  //creating Dates
+  const now = new Date();
+  const halloween = new Date(2016, 9, 31); // 31.10.2016, Months are 0 based
+  const halloweenParty = new Date(2016, 9, 31, 19, 0) //19.00, 31.10.2016
+
+  halloweenParty.getFullYear(); // 2016
+halloweenParty.getMonth(); // 9
+halloweenParty.getDate(); // 31
+halloweenParty.getDay(); // 1 (Mon; 0=Sun, 1=Mon,...)
+halloweenParty.getHours(); // 19
+halloweenParty.getMinutes(); // 0
+halloweenParty.getSeconds(); // 0
+halloweenParty.getMilliseconds(); // 0
+```
