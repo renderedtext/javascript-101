@@ -311,11 +311,175 @@ Date and time are represented by the Date object.
   const halloweenParty = new Date(2016, 9, 31, 19, 0) //19.00, 31.10.2016
 
   halloweenParty.getFullYear(); // 2016
-halloweenParty.getMonth(); // 9
-halloweenParty.getDate(); // 31
-halloweenParty.getDay(); // 1 (Mon; 0=Sun, 1=Mon,...)
-halloweenParty.getHours(); // 19
-halloweenParty.getMinutes(); // 0
-halloweenParty.getSeconds(); // 0
-halloweenParty.getMilliseconds(); // 0
+  halloweenParty.getMonth(); // 9
+  halloweenParty.getDate(); // 31
+  halloweenParty.getDay(); // 1 (Mon; 0=Sun, 1=Mon,...)
+  halloweenParty.getHours(); // 19
+  halloweenParty.getMinutes(); // 0
+  halloweenParty.getSeconds(); // 0
+  halloweenParty.getMilliseconds(); // 0
 ```
+
+Data Type Conversion
+
+Converting to Numbers
+
+Passing string to Number object constructor which returns a number value, not Number object.
+
+```javascript
+  const numStr = "33.3";
+  const num = Number(numStr);   
+```
+
+The second approach is to use the built in parseInt(number, radix) and parseFloat(number, radix). They allow messier input as they discard everything past the number. Also, you can specify the radix, which is the base for the number you want to parse. Default is 10.
+
+```javascript
+const a = parseInt("16 volts", 10); // the " volts" is ignored, 16 is
+ // parsed in base 10
+const b = parseInt("3a", 16); // parse hexadecimal 3a; result is 58
+const c = parseFloat("15.5 kph"); // kph is ignored
+```
+Converting to String
+
+All objects in JavaScript have toString method.  
+
+
+Control flow
+
+Broadly speaking, control flow can be broken into two subcategories: conditional (or branching) control flow and loop control flow. Conditional control flow (if and if...else, which we’ve seen, and switch, which we’ll see shortly) represent a fork in the road: there are two or more paths to take, and we take one, but we don’t double back. Loop control flow (while, do...while, and for loops) repeat their bodies until a condition is met.
+
+Block Statements
+
+Block statements (sometimes called compound statements) are not control flow statements, but they go hand in hand with them. A block statement is just a series of statements enclosed in curly braces that is treated by JavaScript as a single unit. While it is possible to have a block statement by itself, it has little utility
+
+```javascript
+  { // start block statement
+   console.log("statement 1");
+   console.log("statement 2");
+  } // end block statement
+  console.log("statement 3");
+```
+
+Where block statements become useful is with control flow statements.
+
+IF-ELSE Statement
+
+```javascript
+  let grade = 7;
+
+  if (grade === 7)
+  {
+    console.log("Grade is 7");
+  }
+  else
+  {
+    console.log("Grade isn't 7");
+  }
+
+  if (grade < 6)
+    console.log("Grade is too low");
+
+  if (grade < 6)
+  {
+    console.log("Grade is too low");
+  }
+  else if (grade > 6 && grade < 10)
+  {
+    console.log("Grade is good");
+  }
+  else
+  {
+    console.log("Grade is perfect");
+  }
+```
+
+SWITCH Statement
+
+Where if...else statements allow you to take one of two paths, switch statements allow you to take multiple paths based on a single condition. It follows, then, that the condition must be something more varied than a truthy/falsy value: for a switch statement, the condition is an expression that evaluates to a value. JavaScript will evaluate expression, pick the first case that matches, and then execute statements until it sees a break, return, continue, throw or the end of the
+switch statement.
+
+```javascript
+  let totalBet = 7;
+  switch(totalBet) {
+   case 7:
+     totalBet = funds;
+     break;
+   case 11:
+   case 13:
+     totalBet = 0;
+     break;
+   case 21:
+     totalBet = 21;
+   break;
+   default:
+    console.log('default');
+    break;
+  }
+```
+Default is a special case that will be executed if no other case is matched. If there is no break statement for a case, execution will simply executing the case bellow.
+
+WHILE Loop
+
+```javascript
+  let a = 0;
+  while (a < 10)
+  {
+    console.log(a);
+  }
+```
+
+DO-WHILE Loop
+
+```javascript
+  let it = 0;
+  do
+  {
+    console.log(it);
+    it++;
+  }
+  while (it < 10);
+```
+DO-WHILE loop is different from WHILE loop because the condition is at the end, so it will be executed at least once.
+
+FOR Loop
+```javascript
+  for (let it = 0; it < 5; it++)
+  {
+    console.log(it);
+  };
+
+```
+
+FOR-IN Loop
+
+The for...in loop is designed to loop over the property keys of an object. The syntax
+is:
+```javascript
+  const player = { name: 'Thomas', rank: 'Midshipman', age: 25 };
+  for(let prop in player)
+  {
+   console.log(prop + player[prop]);
+  }
+```
+
+FOR-OFF Loop
+
+New in ES6, the for...of operator provides yet another way to loop over the elements in a collection. The syntax is
+```javascript
+  const hand = [randFace(), randFace(), randFace()];
+  for(let face of hand)
+  {
+   console.log(`You rolled...${face}!`);
+  }
+```
+
+Control Flow Exceptions
+
+There are four statements that can alter the normal processing of flow control. You can think of these as control flow “trump cards”:
+
+  * break - breaks out of loop early
+  * continue - skips one iteration in loop
+  * return - exits the current function
+  * throw - indicates an exception that must be caught
+
+Control flow is really what makes our programs tick. Variables and constants may contain all the interesting information, but control flow statements allow us to make useful choices based on that data.
