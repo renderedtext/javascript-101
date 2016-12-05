@@ -483,3 +483,210 @@ There are four statements that can alter the normal processing of flow control. 
   * throw - indicates an exception that must be caught
 
 Control flow is really what makes our programs tick. Variables and constants may contain all the interesting information, but control flow statements allow us to make useful choices based on that data.
+
+Expressions and Operators
+
+An expression is a special kind of statement that evaluates to a value. The distinction between an expression statement (which results in a value) and a non-expression statement (which does not) is critical: understanding the difference gives you the tools you need to combine language elements in useful ways.
+
+Because expressions resolve to a value, we can combine them with other expressions, which in turn can be combined with other expressions, and so on. Nonexpression statements, on the other hand, might do something useful, but they cannot be combined in the same way. Also because expressions resolve to a value, you can use them in assignments. That is,
+you can assign the result of the expression to a variable, constant, or property.
+
+```javascript
+  let a;
+  a = 5*3 //first expression is multiplication, second expression is assignment to a
+
+  let x, y;
+  y = x = 3 * 5;
+```
+
+Operators
+
+You can think of operators as the “verb” to an expression’s “noun.” That is, an expression is a thing that results in a value. An operator is something you do to produce a value. The outcome in both cases is a value. Operators use one or more operands. For example, consider following expression: 5 + 4, the operator is +, and the operands are 5 and 4.
+
+Arithmetic Operators:
+
+  * + Addition                2 + 4
+  * - Subtraction             2 - 4
+  * * Multiplication          2 * 4
+  * / Division                2 / 4
+  * % Remainder               5 % 2
+  * - Unary Negation          x = 5, -x
+  * + Unary Plus              +x, try converting x to a number
+  * ++ Pre-increment          ++5
+  * ++ Post-increment         5++
+  * -- Pre-decrement          --5
+  * -- Post-decrement         5--
+
+Difference between pre and post increment and decrement. Pre increment increases the value by one, and evaluates to the new value, while post increment increases the value by one, and evaluates to the value before. Same goes for decrement.
+
+```javascript
+  let a = 5;
+  console.log(a++);         //5
+  console.log(a);           //6
+
+  a = 5;
+  console.log(++a);         //6
+  console.log(a);           //6
+```
+
+Comparison Operators:
+
+  * === Strict equality
+  * !== Strict inequality
+  * == Abstract equality
+  * != Abstract inequality
+  * < Less than
+  * > Greater than
+  * <= Less or equal to
+  * >= Greater or equal to
+
+Difference between strict and abstract equality is that strict equality checks both value and type when comparing, while abstract equality checks only value when comparing two objects or primitives.
+
+```javascript
+  const n = 5;
+  const s = "5";
+  n === s; // false -- different types
+  n !== s; // true
+  n === Number(s); // true -- "5" converted to numeric 5
+  n !== Number(s); // false
+  n == s; // true; not recommended
+  n != s; // false; not recommended
+  const a = { name: "an object" };
+  const b = { name: "an object" };
+  a === b; // false -- distinct objects
+  a !== b; // true
+  a == b; // false; not recommended
+  a != b; // true; not recommended
+```
+
+String Concatenation
+
+JavaScript determines whether to attempt addition or string concatenation by the types of operands. Both addition and concatenation are evaluated from left to right. JavaScript examines each pair of operands from left to right, and if either operand is a string, it assumes string concatenation. If both values are numeric, it assumes addition. Consider the following two lines:
+
+```javascript
+  3 + 5 + "8" // evaluates to string "88"
+  "3" + 5 + 8 // evaluates to string "358"
+```
+
+Logical Operators
+
+Logical operators concern themselves only with boolean values, which can take on only one of two values: true or false.
+
+  * && - And
+  * || - Or
+  * ! - Not
+
+AND is true only if both of its operands are true, and OR is false only if both of its operands are false. NOT is straightforward, it takes its only operand and inverts it.
+
+JavaScript doesn't have a logical operator for XOR (exclusive or), but can be achieved `(x || y) && x !== y.`.
+
+False Values:
+
+  * undefined
+  * null
+  * false
+  * 0
+  * NaN (not a number)
+  * '' (empty string)
+
+Operator Precedence
+
+Currently, JavaScript has 56 operators grouped into 19 precedence levels. Operators with a higher precedence are performed before operators with a lower precedence. Operators at the same precedence level are either evaluated right to left or left to right. For example, multiplication and division have the same precedence level (14) and are evaluated left to right, and assignment operators (precedence level 3) are evaluated right to left.
+
+Conditional Operator
+
+JavaScript’s sole ternary operator, meaning it takes three operands. The conditional operator is the expression equivalent of an if...else statement. Here’s an example of the conditional operator:
+```javascript
+  const doIt = false;
+  const result = doIt ? "Did it!" : "Didn't do it.";
+```
+If `doIt` is true, `result` will be assigned `"Did it!"`, otherwise, `"Didn't do it"`.
+
+Grouping Operator
+
+The grouping operator (parentheses) has no effect other than to modify or clarify operator precedence
+
+Bitwise Operators
+
+Bitwise operators allow you to perform operations on all the individual bits in a number.
+
+  * & - Bitwise AND
+  * | - Bitwise OR
+  * ^ - Bitwise XOR
+  * ~ - Bitwise NOT
+  * << - Left shift
+  * >> - Right shift
+
+typeof Operator
+
+The typeof operator returns a string representing the type of its operand.
+
+```javascript
+  typeof undefined //"undefined"
+  typeof null //"object"
+  typeof {} //"object"
+  typeof [] //"object"
+  typeof 1 //"number"
+  typeof '' //"string"
+  typeof true //"boolean"
+  typeof Symbol() //"symbol", new in ES6
+  typeof function() {} //"function"
+```
+
+Assignment Operator
+
+The assignment operator is straightforward: it assigns a value to a variable. What’s on the left hand side of the equals sign (sometimes called the lvalue) must be a variable, property, or array element. That is, it must be something that can hold a value (assigning a value to a constant is technically part of the declaration, not an assignment operator).
+
+```javascript
+  //chain assignment
+  let v, v0;
+  v = v0 = 9.8; // first v0 gets the value 9.8, and then v gets the value of v0
+
+  //assignment in while condition
+  while((a = rand()) < 5)
+  {
+    ...
+  }
+```
+
+Assignment with Operation
+
+  * `x += 2 // x = x + 2`
+  * `x -= 2 // x = x - 2`
+  * `x *= 2 // x = x * 2`
+  * `x /= 2 // x = x / 2`
+  * `x %= 2 // x = x % 2`
+  * `x <<= y // x = x << y`
+  * `x >>= y // x = x >> y`
+  * `x &= y // x = x & y`
+  * `x |= y // x = x | y`
+  * `x ^= y // x = x ^ y`
+
+Destructuring Assignment
+
+New in ES6 is a feature called destructuring assignment that allows you to take an object or an array, and “destructure” it into individual variables. When you destructure an object, the variable names must match property names in the object.
+
+```javascript
+  const obj = { b: 2, c: 3, d: 4 };
+  const {a, b, c} = obj;
+  a; // undefined: there was no property "a" in obj
+  b; // 2
+  c; // 3
+  d; // reference error: "d" is not defined
+```
+
+With array destructuring, you can assign any names you want (in order) to the elements of the array:
+
+```javascript
+  const arr = [1, 2, 3];
+  let [x, y] = arr;
+  x; // 1
+  y; // 2
+  z; // error: z hasn't been defined
+
+  const arr = [1, 2, 3, 4, 5];
+  let [x, y, ...rest] = arr;
+  x; // 1
+  y; // 2
+  rest; // [3, 4, 5]
+```
