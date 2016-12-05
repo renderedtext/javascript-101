@@ -690,3 +690,108 @@ With array destructuring, you can assign any names you want (in order) to the el
   y; // 2
   rest; // [3, 4, 5]
 ```
+
+Functions
+
+A function is a self-contained collection of statements that run as a single unit: essentially, you can think of it as a subprogram. Every function has a body; this is the collection of statements that compose the function.
+
+```javascript
+  //function declaration
+  function sayHello()
+  {
+    console.log('Hello World');
+  }
+```
+
+You can now execute the function with `sayHello();`.
+
+Return Values
+
+Invoking a function is like executing an expression, so it can resolve to a value. Resolving to a value is done with the `return` statement.
+```javascript
+  function sayHello()
+  {
+    return 'Hello World'
+  }
+
+  console.log(sayHello());
+```
+
+If you don’t explicitly call return, the return value will be undefined. A function can
+return any type of value.
+
+Functions are objects, so they can be referenced just like any other objects. To reference a function, use the function identifier without parentheses. For example, `const a = sayHello;`. And now execute it `a();`
+
+Function Arguments
+
+A way to get data into the function for further use.
+
+```javascript
+  // a and b are function arguments
+  function avg(a, b) {
+   return (a + b)/2;
+  }
+
+  avg(2, 5);
+```
+
+In many languages, a function’s signature includes its arguments. For example, in C, f() (no arguments) is a different function than f(x) (one argument), which is a different function than f(x, y) (two arguments). JavaScript makes no such distinction, and when you have a function named f, you can call it with 0 or 1 or 10 arguments, and you’re calling the same function. If you fail to provide arguments, they will implicitly receive undefined value.
+
+In ES6, you can declare default values for arguments.
+
+```javascript
+  function f(a, b = "default", c = 3)
+  {
+   return `${a} - ${b} - ${c}`;
+  }
+  f(5, 6, 7); // "5 - 6 - 7"
+  f(5, 6); // "5 - 6 - 3"
+  f(5); // "5 - default - 3"
+  f(); // "undefined - default - 3"
+```
+
+Functions can be properties of objects, and are often called methods.
+
+```javascript
+  const duck = {
+    name: "donald",
+    introduceYourself() {
+      return this.name;
+    }
+  };
+  console.log(o.introduceYourself());
+```
+
+`this` is a special read only value inside a function body. If the function is a member function, `this` refers to the object. It’s important to understand that this is bound according to how the function is called, not where the function is declared. Consider the following:
+
+```javascript
+  const func = duck.introduceYourself();
+  func(); //returns "undefined"
+```
+
+Anonymous Functions
+
+Functions that don't have an identifier. We use a function expression, which is a way to declare an unnamed function and assign the result to a variable. `const f = function() {}; f();`
+
+We can also give the function expression a name, if we want to use the reference to the function from the inside, for recursion.
+`const f = function g() {};`
+
+ES6 introduces a new syntax called arrow 'notation'. It allows the following:
+
+  * You can omit the word function
+  * If the function takes a single parameter you can omit the parentheses
+  * If the function body is a single expression, you can omit the curly braces and return statement
+
+Arrow functions are always anonymous.
+
+```javascript
+  const f1 = function() { return "hello!"; }
+  // OR
+  const f1 = () => "hello!";
+  const f2 = function(name) { return `Hello, ${name}!`; }
+  // OR
+  const f2 = name => `Hello, ${name}!`;
+  const f3 = function(a, b) { return a + b; }
+  // OR
+  const f3 = (a,b) => a + b;
+```
