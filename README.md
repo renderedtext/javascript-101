@@ -299,6 +299,7 @@ In JavaScript, arrays are a special type of object. Unlike regular objects, arra
 ```
 You can access property length of arrays `arr.length;`.
 Access object elements by index. `arr[0]; arr[0] =  5; arr[arr.length - 1];`
+Arrays in JavaScript can be nonhomogeneous, meaning the elements in an array do not need to be the same type.
 
 Dates
 
@@ -877,7 +878,114 @@ Like variables declared with var, function declarations are hoisted to the top o
 
 ```javascript
   f(); // logs "f"
-  function f() {
+  function f()
+  {
    console.log('f');
   }
 ```
+
+Objects and Object Oriented Programming
+
+Class and instance creation:
+
+```javascript
+   class Car {
+     constructor(make, model)
+     {
+       this.make = make;
+       this.model = model;
+       this.userGears = ['P', 'N', 'R', 'D'];
+       this.userGear = this.userGears[0];
+     }
+     shift(gear)
+     {
+     if(this.userGears.indexOf(gear) < 0)
+     throw new Error(`Invalid gear: ${gear}`);
+     this.userGear = gear;
+     }
+   }
+
+  const car = new Car('Tesla', 'Model 5');  //creating instance
+  car.shift('D');                           //invoking method
+```
+
+This keyword is used to refer to the instance the method was invoked on. Most OO languages allow you to specify access level of methods and properties, however, JavaScript doesn't have a mechanism for that. Nothing is stopping you from assigning values directy, like `car.userGear = 'random';`.
+
+Dynamic properties help mitigate this weakness. They have the semantics of a property, and functionality of a method. `_property` is used to declare that the property should be private. That is just a convention, there are no private properties, you can still set `_property` directly.
+
+```javascript
+  class Car
+  {
+     constructor(make, model)
+     {
+       this.make = make;
+       this.model = model;
+       this._userGears = ['P', 'N', 'R', 'D'];
+       this._userGear = this._userGears[0];
+     }
+     get userGear() { return this._userGear; }
+     set userGear(value)
+     {
+       if(this._userGears.indexOf(value) < 0)
+       throw new Error(`Invalid gear: ${value}`);
+       this._userGear = vaule;
+     }
+     shift(gear) { this.userGear = gear; }
+   }
+ ```
+
+Prior to the class keyword introduced in ES6, to create a class you would create a function that served as the class constructor. The nature of classes hasn't changed, it's just more intuitive.
+
+```javascript
+function Car(make, model)
+{
+ this.make = make;
+ this.model = model;
+}
+typeof Car // "function"
+```
+
+Prototype
+
+When you refer to methods that are available on instances of a class, you are referring to prototype methods `car.shift()`.
+Every function has a special property called prototype, this is important for constructor functions. Every object in JavaScript has a prototype. A prototype is essentially a pointer to another object. When you try to access a property on an object, if it can't find it, it will look in the prototype of the object. The chain can go for as long as there are prototypes. When you create an instance of a class, it inherits all functionalities from the class' prototype. This is good for creating class hierarchies.
+
+Inheritance is done with the keyword `extends`, it marks a class as a subclass of another class. The `super()` calls the constructor of the super class.
+
+```javascript
+  class Vehicle
+  {
+    constructor()
+    {
+      this.passengers = [];
+      console.log("Vehicle created");
+    }
+    addPassenger(p)
+    {
+      this.passengers.push(p);
+    }
+  }
+  class Car extends Vehicle {
+    constructor()
+    {
+      super();
+      console.log("Car created");
+    }
+    deployAirbags()
+    {
+      console.log("BWOOSH!");
+    }
+  }
+```
+
+Static methods do not apply to specific instances, they are bound to the class itself.
+```javascript
+  static getNextVin() {
+    return Car.nextVin++; // we could also use this.nextVin++, but Car emphasizes it's a static method
+    }
+  }
+```
+
+Polymorphism is OO parlance for treating an instance as a member of not only its own class, but also any superclass. In JavaScript, which is not typed, any object can be used anywhere, it uses some form of duck typing. JavaScript provides the `instanceof` operator which can tell you if the object is of given class. As long as you don't change the prototype properties, it will work for superclasses as well.
+
+Multiple Inheritance
