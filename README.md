@@ -795,3 +795,89 @@ Arrow functions are always anonymous.
   // OR
   const f3 = (a,b) => a + b;
 ```
+
+Scope
+
+Scope determines when and where the variables, constants and arguments are considered to be defined. Scoping in JavaScript is lexical, meaning we can determine what variables are in scope simply by looking at the source code. Variables that have not yet been declared, or variables that have ceased to exist because a function exits, are not in scope. Functions have access to variables that were available when they were defined, not when they were called. For example:
+
+```javascript
+  const x = 3;
+  function f() {
+   console.log(x); // this will work
+   console.log(y); // this will cause a crash
+  }
+  const y = 3;
+f();
+```
+
+Global scope is the scope you are in when you start your program. Anything you declare in global scope will be available to all scopes of a program. Global variables are not necessarily bad, but abusing them is.
+
+```javascript
+  let name = "Irena"; // global
+  let age = 25; // global
+  function greet() {
+   console.log(`Hello, ${name}!`);
+  }
+  function getBirthYear() {
+   return new Date().getFullYear() - age;
+  }
+```
+
+Functions in this example are highly dependent on context.
+
+Block scope is made by identifiers that are declared with `let` and `const`. Variables in different scopes can have same names, but they are different objects or primitives.
+
+```javascript
+  {
+   // outer block
+   let x = 'blue';
+   console.log(x); // logs "blue"
+   {
+   // inner block
+   let x = 3;
+   console.log(x); // logs "3"
+   }
+   console.log(x); // logs "blue"
+  }
+  console.log(typeof x); // logs "undefined"; x out of scope
+```
+This example demonstrates variable masking. In the inner block, x is a distinct variable from the outer block (with the same name), which in effect masks (or hides) the x that’s defined in the outer scope. When execution enters the inner block, and a new variable x is defined, both variables are in scope, we simply have no way of accessing the variable in the outer scope (because it has the same name).
+
+Functions can be defined in one place, and used in another, but they will use the scope in which they were defined.
+
+```javascript
+  let globalFunc; // undefined global function
+  {
+   let blockVar = 'a'; // block-scoped variable
+   globalFunc = function() {
+   console.log(blockVar);
+   }
+  }
+  globalFunc(); // logs "a"
+```
+
+It’s quite common to intentionally define a function in a specific scope so that it explicitly has access to that scope. This is usually called a closure.
+Immediately invoked function expressions are functions which are declared and invoked after it.
+
+```javascript
+  (function() {
+   // this is the IIFE body
+  })();
+```
+
+Hoisting is a mechanism where JavaScript scans the whole scope, and variables declared with var are hoisted to the top. Only the declarations are hoisted, assignments are not. Instead of using `var`, you should use `let` and `const`.
+
+```javascript
+  x; // undefined
+  var x = 3;
+  x; // 3
+```
+
+Like variables declared with var, function declarations are hoisted to the top of their scope, allowing you to call functions before they’re declared:
+
+```javascript
+  f(); // logs "f"
+  function f() {
+   console.log('f');
+  }
+```
