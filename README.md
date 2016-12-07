@@ -989,3 +989,10 @@ Static methods do not apply to specific instances, they are bound to the class i
 Polymorphism is OO parlance for treating an instance as a member of not only its own class, but also any superclass. In JavaScript, which is not typed, any object can be used anywhere, it uses some form of duck typing. JavaScript provides the `instanceof` operator which can tell you if the object is of given class. As long as you don't change the prototype properties, it will work for superclasses as well.
 
 Multiple Inheritance
+
+Exceptions
+
+JavaScript has a built in `Error` object, which is convenient for any kind of error handling.
+`const error = new Error('invalid error message')` The error object by itself doesn't do much, but you can use it for communication and handling.
+
+Exception handling is accomplished by using the try...catch statement. You try to execute some code, and catch eventual error. Control shifts to the catch block as soon as an error occurs. You can also throw an error, to manually initiate the exception handling mechanism. You can use the finally block to execute some code whether the error has happened or not, at the end.
