@@ -1004,9 +1004,65 @@ Iterators and Generators
 An iterator is roughly analogous to a bookmark: it helps you keep track of where you are. Consider this array as an example.
 
 We can get an iterator of the array using `const it = array.values();` To start getting values of an array, use `it.next()`. It returns an object containing both the value, and the boolean, whether the array was looped over all of its values. When you iterate over all of the array's values, and call `it.next()`, you will get an object like
-`{value: "undefined", done: true}`. Iterators are distinct, every time you create a new iterator, you start from the beginning. It is possible to write your own iterator. You need to specify `Symbol.iterator` property for the class, which returns an iterator.
+`{value: "undefined", done: true}`. Iterators are distinct, every time you create a new iterator, you start from the beginning. It is possible to write your own iterator because iterator protocol enables any object to be iterable. You need to specify `Symbol.iterator` property for the class, which returns an iteratable object.
 
-Generators are functions that use iterators to control their execution.
+```javascript
+  class Log {
+    constructor()
+    {
+      this.messages = [];
+    }
+    add(message)
+    {
+      this.messages.push({ message, timestamp: Date.now() });
+    }
+    [Symbol.iterator]()
+    {
+      return this.messages.values();
+    }
+  }
+```
+
+Or you can write your own method for defining iterators.
+
+```javascript
+  [Symbol.iterator]()
+  {
+    let i = 0;
+    const messages = this.messages;
+    return
+    {
+      next()
+      {
+        if(i >= messages.length)
+          return { value: undefined, done: true };
+        return { value: messages[i++], done: false };
+      }
+    }
+  }
+```
+
+Generators are functions that use iterators to control their execution. Generators bring two things to the table: the first is the ability to control the execution of a function, having it execute in discrete steps. The second is the ability to communicate with the function as it executes. Generators are like functions that can yield control back to the caller and they don't run when you call them, they return an iterator. Their syntax is like normal function's syntax, with `*` at the end of function keyword.
+
+```javascript
+  function* counter() {
+    yield 1;
+    yield 2;
+    yield 3;
+  };
+
+  const it = counter();
+
+  (function (it) {
+    for(let i = 0; i < 5; ++i)
+    {
+      console.log(it.next().value);
+      console.log("we got controll back");
+    }
+  }) (it);
+```
+
+`yield` is used to give back control to the user, if you `return` the value, the iterator's `done` property will be set to `true`. `return` should be only used to stop the generator, not to return values.
 
 
 Asynchronous Programming
