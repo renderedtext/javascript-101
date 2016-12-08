@@ -227,7 +227,9 @@ Up until ES6, the only way to represent values in a string was string concatenat
 `let temp = -27`
 `"Current temperature is: " + temp`
 ES6 introduces string templates, also known as string interpolation.
-`"Current temperature is: ${5}"`
+```javascript
+  `Current temperature is: ${5}`
+```
 
 Booleans
 
@@ -996,3 +998,12 @@ JavaScript has a built in `Error` object, which is convenient for any kind of er
 `const error = new Error('invalid error message')` The error object by itself doesn't do much, but you can use it for communication and handling.
 
 Exception handling is accomplished by using the try...catch statement. You try to execute some code, and catch eventual error. Control shifts to the catch block as soon as an error occurs. You can also throw an error, to manually initiate the exception handling mechanism. You can use the finally block to execute some code whether the error has happened or not, at the end.
+
+Iterators and Generators
+
+An iterator is roughly analogous to a bookmark: it helps you keep track of where you are. Consider this array as an example.
+
+We can get an iterator of the array using `const it = array.values();` To start getting values of an array, use `it.next()`. It returns an object containing both the value, and the boolean, whether the array was looped over all of its values. When you iterate over all of the array's values, and call `it.next()`, you will get an object like
+`{value: "undefined", done: true}`. Iterators are distinct, every time you create a new iterator, you start from the beginning. It is possible to write your own iterator. You need to specify `Symbol.iterator` property for the class, which returns an iterator.
+
+Generators are functions that use iterators to control their execution.
