@@ -1007,3 +1007,88 @@ We can get an iterator of the array using `const it = array.values();` To start 
 `{value: "undefined", done: true}`. Iterators are distinct, every time you create a new iterator, you start from the beginning. It is possible to write your own iterator. You need to specify `Symbol.iterator` property for the class, which returns an iterator.
 
 Generators are functions that use iterators to control their execution.
+
+
+Asynchronous Programming
+
+In synchronous programming, you have to wait for the task to finish, while in asynchronous programming, you don't wait for the task to complete, you can move on to the next task before the previous one finishes. The result of each task can be handled when the task finishes.
+
+In JavaScript, asynchronous programming is used for the following reasons:
+
+  * Getting user input
+  * Network requests (Ajax calls, for instance)
+  * Filesystem operations (reading/writing files, etc.)
+  * Intentionally time-delayed functionality (an alarm, for example)
+
+Callbacks are a mechanism for asynchronous behavior. A callback is just a function that will be invoked later in time. It's just a regular JavaScript function. So the function that is going to take long to execute is set to be non-blocking, and trusted with a callback function to handle the results. All control is given to the asynchronous function.
+
+```javascript
+  console.log('before function');
+  setTimeout(function() {
+    console.log('after end of function');
+  }, 3000);
+  console.log('after start and before end of function');
+```
+You can also use setInterval and clearInterval, which runs your function forever with regards to interval, until you stop it.
+
+Callbacks make exception handling difficult (which we’ll see soon), there needed to be a standard way to communicate a failure to the callback. The convention that emerged was to use the first argument to a callback to receive an error object. If that error is null or undefined, there was no error.
+
+Promises
+
+What promises do is ensure that callbacks are always handled in the same predictable manner, eliminating some of the nasty surprises and hard-to-find   bugs you can get with callbacks alone. The basic idea of a promise is simple: when you call a promise-based asynchronous function, it returns a Promise instance. The promise instance can fulfilled (success) or rejected (failure), or pending. Once a promise has been fulfilled or rejected, it is settled, it can't change it's state. Good thing about promises is they are objects, so they can be passed around as objects. If you want to start an asynchronous task, but prefer someone else to handle it, you can do it by passing the promise.
+
+The most basic way to create a Promise is to use the constructor directly.
+```javascript
+    new Promise(function (resolve, reject) {
+          // Does nothing
+    });
+```
+The resolve argument is also a function, and encapsulates what we want to do when we receive the expected value. The reject argument is also a function, and represents what we want to do when we receive an error. Finally, the function we pass to the Promise constructor handles the asynchronous code itself.
+Every Promise has a method, called then, which accepts two functions as arguments: resolve, and reject, in that order. Calling then on a Promise and passing it these functions allows the function you passed to the constructor to access them.
+
+```javascript
+  function getData() {
+    return new Promise(function(resolve, reject) {
+      setTimeout(function() {
+        let data = [1, 2, 3, 4, 5];
+        if (data === undefined)
+        {
+          reject(Error("Couldn't get data"));
+        }
+        else
+        {
+          resolve(data);
+        }
+      }, 5000);
+    });
+  };
+
+  const promise = getData();
+
+  promise.then(function(data) {
+    console.log(data);
+  }, function(err) {
+    console.log(err);
+  });
+```
+
+The then callback is triggered when the promise is resolved. You can also chain then method callbacks. Each then receives the result of the previous then's return value. Then method can be chained directly on the constructor as well.
+
+```javascript
+  new Promise(function(resolve, reject) {
+  	// A mock async action using setTimeout
+  	setTimeout(function() { resolve(10); }, 3000);
+  })
+  .then(function(num) { console.log('first then: ', num); return num * 2; })
+  .then(function(num) { console.log('second then: ', num); return num * 2; })
+  .then(function(num) { console.log('last then: ', num);});
+```
+You can also use the catch method, when the promise is rejected, that way you can pass only the function for resolve, in then method, and catch for errors in the end.
+
+```javascript
+  promise
+  .then(function(data) {})
+  .then(function(data) {})
+  .catch(function(err) {});
+```
+JavaScript also provides the `Promise.all` method, which waits for all promisses to finish, before executing the then method.
