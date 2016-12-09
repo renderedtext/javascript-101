@@ -1217,4 +1217,36 @@ The DOM api describes around 200 events. Every element has a method `addEventLis
 
 Ajax
 
-Ajax enables asynchronous communication with the server, which means you don't need to refresh the page, every time you need something from the server. You can refresh the elements of DOM when the response arrives in the browser.
+Ajax enables asynchronous communication with the server, which means you don't need to refresh the page, every time you need something from the server. You can refresh the elements of DOM when the response arrives in the browser. The core concept is simple. The browser makes a HTTP request programatically and recieves a response, usually in JSON format.
+
+jQuery
+
+jQuery is a popular library for manipulating the DOM and executing Ajax requests. The easiest way to include jQuery is by using a CDN:
+`<script src="//code.jquery.com/jquery-2.1.4.min.js"></script>`
+
+jQuery allows you to put your code in a callback that will only be invoked once the browser has fully loaded the page and the DOM has been constructed:
+```javascript
+  $(document).ready(function() {
+   // code here is run after all HTML has been
+   // loaded and the DOM is constructed
+  });
+```
+Any DOM manipulation you do with jQuery starts with creating a jQuery object which containes a set of DOM elements. The jQuery function is called with CSS selectors or with html using `jQuery` or `$`.
+
+Calling jQuery with a CSS selector returns a jQuery object matching the selector. Calling jQuery with HTML creates a new DOM element.
+
+```javascript
+  const $paragraphs = $('p');
+  const $newParagraph = $('<p>Text</p>');
+```
+
+Manipulating jQuery objects
+
+```javascript
+  $('p').text('New text'); //changes text of all paragraphs in DOM
+  $('#description').remove(); //removes the paragraph with id 'description from the DOM'
+  $('p').append('<sup>*</sup>'); //appends child to elements
+  $('p:odd').css('color', 'red'); //changes color of odd numbered paragraphs
+```
+
+You can unwrap the jQuery element using the `get(idx)`, which will return a DOM element.
