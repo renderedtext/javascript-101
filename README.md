@@ -1062,7 +1062,7 @@ Generators are functions that use iterators to control their execution. Generato
   }) (it);
 ```
 
-`yield` is used to give back control to the user, if you `return` the value, the iterator's `done` property will be set to `true`. `return` should be only used to stop the generator, not to return values.
+`yield` is used to give back control to the user, if you `return` the value, the iterator's `done` property will be set to `true`. `return` should be only used to stop the generator, not to return values.  
 
 
 Asynchronous Programming
@@ -1148,3 +1148,73 @@ You can also use the catch method, when the promise is rejected, that way you ca
   .catch(function(err) {});
 ```
 JavaScript also provides the `Promise.all` method, which waits for all promisses to finish, before executing the then method.
+
+Regular Expressions
+
+Regular expressions are patterns used to match character combinations in strings. You can construct a regular expression as a literal, or as an object.
+
+Constructing regex
+
+```javascript
+  const re1 = /going/; // regex that can search for the word "going"
+  const re2 = new RegExp("going"); // equivalent object constructor
+```
+Regular expression literals provide compilation of the regular expression when the script is loaded. When the regular expression will remain constant, use this for better performance.
+Using the constructor function provides runtime compilation of the regular expression. Use the constructor function when you know the regular expression pattern will be changing.
+
+For example, the pattern `/abc/` matches character combinations in strings only when exactly the characters 'abc' occur together and in that order.
+
+Here are some of the most common special characters in regular expressions:
+
+  * * - 0 or more occurrences of preceding element
+  * + - 1 or more occurrences of preceding element
+  * ? - 0 or 1 occurrences of preceding element
+  * ^ - matches beginning of input
+  * $ - matches end of input
+  * . - matches any single character except new line
+  * x|y - matches `'x'` or `'y'`
+  * {n} - exactly n occurrences of preceding character
+  * {n, m} - range from n to m occurrences of preceding character
+  * [xyz] - matches any of the characters in the brackets
+  * [^xyz] - matches any of the characters not present in the brackets
+  * \ - used for escaping special characters
+
+The Document Object Model (DOM)
+
+The Document Object Model, or DOM, is a convention for describing the structure of an HTML document, represented as a tree which consists of nodes. Every node has a parent, except the root node, and zero or more children. The root node is the document, which has to children, <head> and <body> elements.
+
+The DOM provides the get method, which allows you to locate specific HTML elements.
+
+```javascript
+  const title = document.getElementById('title'); //returns element with id 'title'
+  const callouts = document.getElementsByClassName('callout'); //returns elements with class 'callout'
+  const paragraphs = document.getElementByTagName('p'); //returns paragraph elements
+```
+
+DOM also allows you to query elements' relations to locate elements, using CSS selectors.
+
+You can change innerHtml and textContent property of an element, which would modify the DOM.
+
+```javascript
+const el = document.getElementById('element');
+el.textContent = "Modified HTML file"; // look for change in browser
+el.innerHTML = "<i>Modified</i> HTML file"; // look for change in browser
+```
+
+You can create new elements explicitly by creating new nodes in the document and you have to add them to the DOM manually.
+
+```javascript
+  const child = document.createElement('p');
+  const parent = document.getElementById('container');
+  parent.appendChild('child');
+```
+You can specify on which position you want to add the child using `insertBefore(child, element);`.
+
+You can modify the class of the node, using `element.classList.add('class')` and `element.classList.remove('class');`.
+
+DOM Events
+The DOM api describes around 200 events. Every element has a method `addEventListener(name, function(event))` which allows you to specify the behavior when that event occurs. The event object contains information about the event that occurred. Multiple handlers can handle the same event. You can prevent default behavior of elements by specifying `event.preventDefault()` in the handler. Since multiple hanlers can handle the same event, it can be done in bottom-up and top-down manner. `preventDefault()` stops the handling of event, but propagates it to other handlers in the chain. You can prevent propagation using `preventPropagation()`.
+
+Ajax
+
+Ajax enables asynchronous communication with the server, which means you don't need to refresh the page, every time you need something from the server. You can refresh the elements of DOM when the response arrives in the browser.
