@@ -1250,3 +1250,210 @@ Manipulating jQuery objects
 ```
 
 You can unwrap the jQuery element using the `get(idx)`, which will return a DOM element.
+
+Node
+
+Modules
+Modules are a mechanism for packaging and namespacing code. Module is an object in node, in which you put every object you wish to export so someone can use in their code. You do that by assigning the objects on `module.exports`.
+
+```javascript
+  //helloEarth.js
+  function hello()
+  {
+    console.log('Hello Earth');
+  }
+  module.exports = hello;
+
+  //helloMars.js
+  function hello()
+  {
+    console.log('Hello Mars');
+  }
+  module.exports = hello;
+
+  //app.js
+  const earth = require('helloEarth');
+  const mars = require('helloMars');
+  earth.hello();
+  mars.hello();
+```
+
+Modules can export a value of any type. You can assign more objects to exports, it is just an object containing all the objects you want to share. There are three types of modules:
+
+                              * Core, reserved module names provided by Node
+                              * File, modules you create
+                              * npm, modules npm got for you
+
+Npm will loke for modules in the node_modules directory of your projects. You should let npm take care of those modules, and not change anything manually. Node remembers when you import modules, so you can import any module only once.
+
+Customizing Modules with Function Modules
+
+Modules most commonly export objects, and sometimes a single function. There’s another very common pattern. A module that exports a function that’s intended to be invoked immediately. It’s the return value of that function (which can be a function itself) that’s intended to be used (in other words, you don’t use the function that’s returned. You invoke that function and use whatever it returns).
+
+File System Access
+
+Whenever you invoke a Node application, it inherits it's current working directory from where you run it from (which may be different than where the file lives). The root directory in the project is stored in a special variable `__dirname`.
+
+Writing to a file:
+
+```javascript
+  const fs = require('fs');
+
+  fs.writeFile(__dirname + '/hello.txt',
+   'hello from Node!', function(err) {
+   if(err) return console.error('Error writing to file.');
+  });
+```
+
+Using string concatenation for declaring path can be problematic, so Node provides the path module.
+
+```javascript
+  //write
+  const fs = require('fs');
+  const path = require('path');
+  fs.writeFile(path.join(__dirname, 'hello.txt'),
+   'hello from Node!', function(err) {
+   if(err) return console.error('Error writing to file.');
+  });
+
+  //read
+  const fs = require('fs');
+  const path = require('path');
+  fs.readFile(path.join(__dirname, 'hello.txt'),
+   { encoding: 'utf8' }, function(err, data) {
+   if(err) return console.error('Error reading file.');
+   console.log('File contents:');
+   console.log(data);
+  });
+```
+If you don't tell node what encoding to use, it will return a buffer. All the functions in fs module have synchronous versions.
+
+Process
+Every running Node program has access to a variable called process that allows it to get information about its own execution and control it. You can immediately stop the execution calling `process.exit()`. You can also provide a numeric parameter to say whether the script exited without errors. 0 indicates no errors.
+The process object also gives you access to an array containing the command-line arguments passed to the program. The command line arguments are stored in `process.argv`. If you invoke the program like this:
+`$ node args.js file1.txt file2.txt file3.txt`
+You can list all arguments:
+
+```javascript
+  //args.js
+  console.log(process.argv);
+```
+
+The first element is the interpreter, or program that interpreted the source file (node, in our case). The second element is the full path to the script being executed, and the rest of the elements are any arguments passed to the program. Process also gives you access to environment variables through the object `process.env`. The child_process module allows your app to run other programs, whether it be another Node program, an executable, or a script in another language.
+
+Operating System
+The os module provides some platform-specific information about the computer on which the app is running. Here is an example that shows the most useful information that os exposes (and their values on my cloud-based dev machine):
+
+```javascript
+  const os = require('os');
+
+  console.log("Hostname: " + os.hostname());
+  console.log("OS type: " + os.type());
+  console.log("OS platform: " + os.platform());
+  console.log("OS release: " + os.release());
+  console.log("CPU architecture: " + os.arch());
+  console.log("Number of CPUs: " + os.cpus().length);
+```
+
+Streams
+Streams are pipes that let you easily read data from a source and pipe it to a destination. Streams can be readable, writable or both. Readable streams let you read data from a source while writable streams let you write data to a destination.
+Here is an example of a readable stream:
+```javascript
+  const fs = require('fs');
+  const readableStream = fs.createReadStream('stream.txt');
+  const data = '';
+
+  readableStream.on('data', function(chunk) {
+      data += chunk;
+  });
+
+  readableStream.on('end', function() {
+      console.log(data);
+  });
+```
+Here we attach a callback for the event on data, to add chunk of read data. When the whole file is read, we log the whole data of the file.
+
+Here is an example of a writable stream:
+```javascript
+  const ws = fs.createWriteStream('stream.txt', { encoding: 'utf8' });
+
+  ws.write('line 1\n');
+  ws.write('line 2\n');
+  ws.end();
+```
+The `end()` method can take one parameter which is data to be written before closing the stream.
+
+Because data “flows” through streams, it stands to reason that you could take the data coming out of a read stream and immediately write it to a write stream. This process is called piping. For example, we could pipe a read stream to a write stream to copy the contents of one file to another:
+
+```javascript
+  const rs = fs.createReadStream('stream.txt');
+  const ws = fs.createWriteStream('stream_copy.txt');
+
+  rs.pipe(ws);
+```
+
+Servers
+The http module (and its secure counterpart, the https module) exposes a createServer method that creates a basic web server. All you have to do is provide a callback function that will handle incoming requests. To start the server, you simply call its listen method and give it a port:
+
+```javascript
+  const http = require('http');
+
+  const server = http.createServer(function(req, res) {
+   console.log(`${req.method} ${req.url}`);
+   res.end('Hello world!');
+  });
+  const port = 8080;
+
+  server.listen(port, function() {
+   // you can pass a callback to listen that lets you know
+   // the server has started
+   console.log(`server startd on port ${port}`);
+  });
+```
+This will render 'Hello World!' every time you visit http://localhost:8080.
+
+At the heart of Node’s web server is the callback function that you provide, that will respond to all incoming requests. It takes two arguments, a request object and a response object.
+If you’re using Node to serve websites, you’ll probably want to look into using a framework such as Express or Koa.
+
+Here is an example using express:
+
+```javascript
+  const express = require('express');
+  const app = express();
+
+  app.get('/', function(req, res) {
+    res.send('Hello');
+  });
+
+  app.get('/some/path', function(req, res) {
+    res.send('Well Done');
+  });
+
+  app.get('/hello/:name', function(req, res) {
+    res.send('Hello ' + req.params.name);
+  });
+
+  app.listen(3000, function () {
+    console.log('Example app listening on port 3000!')
+  });
+```
+
+Protecting Objects, Freezing, Sealing, Preventing Extensions
+
+JavaScript provides three mechanisms for preventing unintentional modifications.
+Freezing prevents any changes to an object. It makes the object immutable.
+Once you freeze an object, you can't:
+
+  * Set the values of the object's properties
+  * Call methods that modify object's properties
+  * Invoke setters on the object
+  * Add new properties
+  * Add new methods
+  * Change configuration of existing properties and methods
+
+To freeze an object, use `Object.freeze(myObject);`. You can check whether an object is frozen using `Object.isFrozen(myObject);`
+
+Sealing an object prevents from adding new properties to an object, or the reconfiguration and removal of existing ones. You can seal an object using `Object.seal(myObject)` and you can check whether an object is sealed using `Object.isSealed(myObject)`.
+
+Preventing extensions is the protection. Making an object nonextensible, only prevents new
+properties from being added. To make the object nonextensible use `Object.preventExtensions(myObject);` and to check whether an object is extensible, use `Object.isExtensible(myObject);`.

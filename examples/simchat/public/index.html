@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Simchat</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.0/angular.js"></script>
+  <script src="/socket.io/socket.io.js"></script>
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+  <script src="dist/app.js"></script>
+  <script src="dist/controller.js"></script>
+</head>
+<body ng-app="app">
+  <div ng-controller="cont as vm" class="cotnainer">
+    <h1>Simchat</h1>
+
+    <textarea style="width: 600px; height: 400px;" readonly> {{ vm.msgs }} </textarea>
+
+    <input type="text" ng-model="vm.msg" ng-keypress="vm.sendMessage($event)" class="form-control"/>
+  <div>
+
+</body>
+</html>
