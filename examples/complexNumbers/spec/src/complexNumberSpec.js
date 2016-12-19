@@ -1,4 +1,4 @@
-const ComplexNumber = require('../../dist/complexNumber.js');
+const ComplexNumber = require('../../src/complexNumber.js');
 
 describe('ComplexNumber', () => {
 
