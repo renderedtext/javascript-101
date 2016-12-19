@@ -1,39 +1,83 @@
 class ComplexNumber {
 
   constructor(real, imag) {
-    this.real = real;
-    this.imag = imag;
+    if(typeof real == 'number' && typeof imag == 'number')
+    {
+      this.real = real;
+      this.imag = imag;
+    }
+    else
+    {
+      this.real = 0;
+      this.imag = 0;
+    }
+  };
+
+  static calculate(z1, z2, f) {
+    if (ComplexNumber.validate(z1) && ComplexNumber.validate(z2))
+    {
+      return f(z1, z2);
+    }
+    else
+    {
+      return null;
+    }
   };
 
   static moduo(z) {
-    return Math.sqrt(z.real*z.real + z.imag*z.imag);
+    if (ComplexNumber.validate(z))
+    {
+      return Math.sqrt(z.real*z.real + z.imag*z.imag);
+    }
+    else
+    {
+      return null;
+    }
   };
 
   static conjugate(z) {
-    return new ComplexNumber(z.real, -z.imag);
+    if (ComplexNumber.validate(z))
+    {
+      return new ComplexNumber(z.real, -z.imag);
+    }
+    else
+    {
+      return null;
+    }
   };
 
   static add(z1, z2) {
-    return new ComplexNumber(z1.real + z2.real,
-                             z1.imag + z2.imag);
+    return ComplexNumber.calculate(z1, z2, (z1, z2) => {
+      return new ComplexNumber(z1.real + z2.real,
+                               z1.imag + z2.imag);
+    });
   };
 
   static subtract(z1, z2) {
-    return new ComplexNumber(z1.real - z2.real,
-                             z1.imag - z2.imag);
+    return ComplexNumber.calculate(z1, z2, (z1, z2) => {
+      return new ComplexNumber(z1.real - z2.real,
+                               z1.imag - z2.imag);
+    });
 
   };
 
   static multiply(z1, z2) {
-    return new ComplexNumber(z1.real*z2.real - z1.imag*z2.imag,
-                             z1.real*z2.imag + z2.real*z1.imag);
+    return ComplexNumber.calculate(z1, z2, (z1,z2) => {
+      return new ComplexNumber(z1.real*z2.real - z1.imag*z2.imag,
+                               z1.real*z2.imag + z2.real*z1.imag);
+    });
   };
 
   static divide(z1, z2) {
-    return new ComplexNumber((z1.real*z2.real + z1.imag*z2.imag)/(z2.real*z2.real + z2.imag*z2.imag),
-                             (z1.imag*z2.real - z1.real*z2.imag)/(z2.real*z2.real + z2.imag*z2.imag));
+    return ComplexNumber.calculate(z1, z2, (z1, z2) => {
+      return new ComplexNumber((z1.real*z2.real + z1.imag*z2.imag)/(z2.real*z2.real + z2.imag*z2.imag),
+                               (z1.imag*z2.real - z1.real*z2.imag)/(z2.real*z2.real + z2.imag*z2.imag));
+    });
   };
 
+  static validate(z) {
+    return z instanceof ComplexNumber;
+  };
 }
 
 module.exports = ComplexNumber;
