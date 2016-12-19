@@ -4,8 +4,6 @@ describe('ComplexNumber', () => {
 
   let z1 = new ComplexNumber(1, 3);
   let z2 = new ComplexNumber(2, 1);
-  let z3 = new ComplexNumber(0, -3);
-  let z4 = new ComplexNumber(2, 4);
 
   describe('constructor', () => {
     it('Creates object initialized  with params, if params are numbers', () => {
@@ -15,22 +13,19 @@ describe('ComplexNumber', () => {
       expect(z.imag).toBe(3);
     });
 
-    it('Creates object initialized with zeros, if params are not numbers', () => {
-      const z = new ComplexNumber(2, 'not number');
-
-      expect(z.real).toBe(0);
-      expect(z.imag).toBe(0);
-    });
+    it('Throws error "invalid params" if parameters are not numbers', () => {
+      expect(() => new ComplexNumber(2, 'not number')).toThrow(new Error('Invalid params'));
+     });
   });
 
   describe('.validate', () => {
-    it('Returns true if argument is a ComplexNumber', () => {
+    it('Returns true if paremeter is a ComplexNumber', () => {
       const res = ComplexNumber.validate(z1);
 
       expect(res).toBe(true);
     });
 
-    it('Returns false if argument is not a ComplexNumber', () => {
+    it('Returns false if parameter is not a ComplexNumber', () => {
       const res = ComplexNumber.validate(new String('Not a ComplexNumber'));
 
       expect(res).toBe(false);
@@ -45,10 +40,8 @@ describe('ComplexNumber', () => {
       expect(z.imag).toBe(4);
     });
 
-    it('Returns null if both arguments are not ComplexNumbers', () => {
-      const z = ComplexNumber.add(z1, 5);
-
-      expect(z).toBe(null);
+    it('Throws error "invalid params" if parameters are not ComplexNumbers', () => {
+      expect(() => ComplexNumber.add(z1, 5)).toThrow(new Error('Invalid params'));
     });
   });
 
@@ -60,10 +53,8 @@ describe('ComplexNumber', () => {
       expect(z.imag).toBe(2);
     });
 
-    it('Returns null if both arguments are not ComplexNumbers', () => {
-      const z = ComplexNumber.subtract(-5, z1);
-
-      expect(z).toBe(null);
+    it('Throws error "invalid params" if parameters are not ComplexNumbers', () => {
+      expect(() => ComplexNumber.subtract(-5, z1)).toThrow(new Error('Invalid params'));
     });
 
   });
@@ -76,10 +67,8 @@ describe('ComplexNumber', () => {
       expect(z.imag).toBe(7);
     });
 
-    it('Returns null if both arguments are not ComplexNumbers', () => {
-      const z = ComplexNumber.multiply('not z', z1);
-
-      expect(z).toBe(null);
+    it('Throws error "Invalid params" if parameters are not ComplexNumbers', () => {
+      expect(() => ComplexNumber.multiply('not z', z1)).toThrow(new Error('Invalid params'));
     });
   });
 
@@ -91,10 +80,8 @@ describe('ComplexNumber', () => {
       expect(z.imag).toBe(1);
     });
 
-    it('Returns null if both arguments are not ComplexNUmbers', () => {
-      const z = ComplexNumber.divide(z1, 'not z');
-
-      expect(z).toBe(null);
+    it('Throws error "Invalid params" if both arguments are not ComplexNUmbers', () => {
+      expect(() => ComplexNumber.divide(z1, 'not z')).toThrow(new Error('Invalid params'));
     });
   });
 
@@ -105,10 +92,8 @@ describe('ComplexNumber', () => {
       expect(true).toBe(true);
     });
 
-    it('Returns null if argument is not a ComplexNumber', () => {
-      const mod = ComplexNumber.moduo('not z');
-
-      expect(mod).toBe(null);
+    it('Throws error "Invalid params" if parameter is not a ComplexNumber', () => {
+      expect(() => ComplexNumber.moduo(5)).toThrow(new Error('Invalid params'));
     });
   });
 
@@ -120,10 +105,8 @@ describe('ComplexNumber', () => {
       expect(z.imag).toBe(-z1.imag);
     });
 
-    it('Returns null if argument is not a ComplexNumber', () => {
-      const z = ComplexNumber.conjugate('not z');
-
-      expect(z).toBe(null);
+    it('Throws error "Invalid params" if parameter is not a ComplexNumber', () => {
+      expect(() => ComplexNumber.conjugate('not z')).toThrow(new Error('Invalid params'));
     });
   });
 

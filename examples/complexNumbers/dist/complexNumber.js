@@ -12,8 +12,7 @@ var ComplexNumber = function () {
       this.real = real;
       this.imag = imag;
     } else {
-      this.real = 0;
-      this.imag = 0;
+      throw new Error("Invalid params");
     }
   }
 
@@ -23,7 +22,7 @@ var ComplexNumber = function () {
       if (ComplexNumber.validate(z1) && ComplexNumber.validate(z2)) {
         return f(z1, z2);
       } else {
-        return null;
+        throw new Error("Invalid params");
       }
     }
   }, {
@@ -32,7 +31,7 @@ var ComplexNumber = function () {
       if (ComplexNumber.validate(z)) {
         return Math.sqrt(z.real * z.real + z.imag * z.imag);
       } else {
-        return null;
+        throw new Error("Invalid params");
       }
     }
   }, {
@@ -41,7 +40,7 @@ var ComplexNumber = function () {
       if (ComplexNumber.validate(z)) {
         return new ComplexNumber(z.real, -z.imag);
       } else {
-        return null;
+        throw new Error("Invalid params");
       }
     }
   }, {

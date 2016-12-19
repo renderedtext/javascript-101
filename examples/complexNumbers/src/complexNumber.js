@@ -8,8 +8,7 @@ class ComplexNumber {
     }
     else
     {
-      this.real = 0;
-      this.imag = 0;
+      throw new Error("Invalid params");
     }
   };
 
@@ -20,7 +19,7 @@ class ComplexNumber {
     }
     else
     {
-      return null;
+      throw new Error("Invalid params");
     }
   };
 
@@ -31,7 +30,7 @@ class ComplexNumber {
     }
     else
     {
-      return null;
+      throw new Error("Invalid params");
     }
   };
 
@@ -42,7 +41,7 @@ class ComplexNumber {
     }
     else
     {
-      return null;
+      throw new Error("Invalid params");
     }
   };
 
