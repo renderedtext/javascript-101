@@ -1,0 +1,65 @@
+#!/usr/bin/env node
+const ComplexNumber = require('./complexNumber.js');
+const util = require('./util.js');
+
+if (process.argv.length === 4)
+{
+  const command = process.argv[2];
+  const number = process.argv[3];
+
+  const [real, imag] = util.validateComplexNumber(number);
+
+  if (command === 'mod')
+  {
+    console.log(ComplexNumber.moduo(new ComplexNumber(real, imag)));
+  }
+  else if(command === 'conj')
+  {
+    const z = ComplexNumber.conjugate(new ComplexNumber(real, imag));
+
+    console.log(z.toString());
+  }
+}
+else if (process.argv.length === 5)
+{
+  const command = process.argv[2];
+  const number1 = process.argv[3];
+  const number2 = process.argv[4];
+
+  const [real1, imag1] = util.validateComplexNumber(number1);
+  const [real2, imag2] = util.validateComplexNumber(number2);
+
+  if (command === 'add')
+  {
+    const z = ComplexNumber.add(new ComplexNumber(real1, imag1),
+                                new ComplexNumber(real2, imag2));
+
+    console.log(z.toString());
+  }
+  else if (command === 'subtract')
+  {
+    const z = ComplexNumber.subtract(new ComplexNumber(real1, imag1),
+                                     new ComplexNumber(real2, imag2));
+
+    console.log(z.toString())
+  }
+  else if (command === 'mul')
+  {
+    const z = ComplexNumber.multiply(new ComplexNumber(real1, imag1),
+                                     new ComplexNumber(real2, imag2));
+
+    console.log(z.toString());
+  }
+  else if (command === 'div')
+  {
+    const z = ComplexNumber.divide(new ComplexNumber(real1, imag1),
+                                   new ComplexNumber(real2, imag2));
+
+    console.log(z.toString());
+  }
+}
+else
+{
+  console.log('bad arguments');
+}
+
