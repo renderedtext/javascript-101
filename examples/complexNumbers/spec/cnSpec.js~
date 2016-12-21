@@ -1,0 +1,65 @@
+const exec = require('child_process').exec;
+
+describe('ComplexNumberCLI', () => {
+  describe('test', () => {
+    let res;
+
+    beforeEach(done => {
+
+      const promise = new Promise((resolve, reject) => {
+        exec('ls', (error, stdout, stderr) => {
+          resolve(stdout);
+        });
+      });
+
+      promise.then((resp) => {
+        res = resp;
+        done();
+      });
+
+    });
+
+    it('prints res', (done) => {
+      console.log(res);
+      expect(true).toBe(true);
+      done();
+    });
+
+    it('works', (done) => {
+      let res;
+      const promise = new Promise((resolve, reject) => {
+        exec('ls', (error, stdout, stderr) => {
+          resolve(stdout);
+        });
+      });
+
+      promise.then((resp) => {
+        console.log('second test');
+        console.log(resp);
+        res = resp;
+        console.log(res);
+        expect(true).toBe(true);
+        done();
+      });
+    });
+
+    it('Executes conjugate command', (done) => {
+      const promise = new Promise((resolve, reject) => {
+        exec('./src/cn conj 2,3', (error, stdout, stderr) => {
+          console.log('complex number script');
+          console.log(stdout);
+          resolve(stdout);
+        });
+      });
+
+      promise.then((resp) => {
+        console.log('script finished');
+        console.log(resp);
+        expect(true).toBe(true);
+        done();
+      });
+
+    });
+
+  });
+});

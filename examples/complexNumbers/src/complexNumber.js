@@ -12,6 +12,17 @@ class ComplexNumber {
     }
   };
 
+  toString() {
+    if (this.imag > 0)
+    {
+      return `${this.real} + ${this.imag}i`;
+    }
+    else
+    {
+      return `${this.real} - ${Math.abs(this.imag)}i`;
+    }
+  };
+
   static calculate(z1, z2, f) {
     if (ComplexNumber.validate(z1) && ComplexNumber.validate(z2))
     {
