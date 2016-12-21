@@ -21,6 +21,6 @@ exports.parse = (strNumber) => {
   }
   else
   {
-    throw new Error('Invalid argument');
+    throw new Error('Invalid argument format');
   }
 };
