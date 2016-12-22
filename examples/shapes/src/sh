@@ -1,0 +1,39 @@
+#!/usr/bin/env node
+const ShapeParser = require('./shapeParser.js');
+
+const program = require('commander');
+
+const handle = (shape, coords) => {
+  try
+  {
+    const obj = ShapeParser.convert(shape, coords);
+    if (program.area)
+    {
+      console.log(obj.getArea());
+    }
+    else if (program.perimeter)
+    {
+      console.log(obj.getPerimeter());
+    }
+    else
+    {
+      console.log(obj.getArea());
+      console.log(obj.getPerimeter());
+    }
+  }
+  catch(e)
+  {
+    console.log(e.message);
+    console.log(e.stack);
+  }
+};
+
+program
+  .command('shape <shape> <coords>')
+  .description('do calculations for shape')
+  .option('-a --area', 'Calculate Area')
+  .option('-p --perimeter', 'Calculate Perimeter')
+  .action(handle);
+
+program.parse(process.argv);
+
