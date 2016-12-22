@@ -11,150 +11,175 @@ const transformOperand = number => {
   return new ComplexNumber(real, imag)
 };
 
+const throwError = message => {
+  throw new Error(message);
+};
+
+const executeMod = () => {
+  const number = process.argv[3];
+
+  if (number === undefined)
+  {
+    throwError('Missing number argument');
+  }
+  else if (process.argv.length > 4)
+  {
+    throwError('Too many arguments');
+  }
+  else
+  {
+    const z = transformOperand(number);
+    const mod = ComplexNumber.moduo(z);
+
+    console.log(mod);
+  }
+};
+
+const executeConj = () => {
+  const number = process.argv[3];
+
+  if (number === undefined)
+  {
+    throwError('Missing number argument');
+  }
+  else if (process.argv.length > 4)
+  {
+    throwError('Too many arguments');
+  }
+  else
+  {
+    const z = transformOperand(number);
+    const conj = ComplexNumber.conjugate(z);
+
+    console.log(conj.toString());
+  }
+};
+
+const executeAdd = () => {
+  const number1 = process.argv[3];
+  const number2 = process.argv[4];
+
+  if (number1 === undefined || number2 === undefined)
+  {
+    throwError('Missing number argument');
+  }
+  else if (process.argv.length > 5)
+  {
+    throwError('Too many arguments');
+  }
+  else
+  {
+    const z1 = transformOperand(number1);
+    const z2 = transformOperand(number2);
+    const res = ComplexNumber.add(z1, z2);
+
+    console.log(res.toString());
+  }
+};
+
+const executeSub = () => {
+  const number1 = process.argv[3];
+  const number2 = process.argv[4];
+
+  if (number1 === undefined || number2 === undefined)
+  {
+    throwError('Missing number argument');
+  }
+  else if (process.argv.length > 5)
+  {
+    throwError('Too many arguments');
+  }
+  else
+  {
+    const z1 = transformOperand(number1);
+    const z2 = transformOperand(number2);
+    const res = ComplexNumber.subtract(z1, z2);
+
+    console.log(res.toString());
+  }
+};
+
+const executeMul = () => {
+  const number1 = process.argv[3];
+  const number2 = process.argv[4];
+
+  if (number1 === undefined || number2 === undefined)
+  {
+    throwError('Missing number argument');
+  }
+  else if (process.argv.length > 5)
+  {
+    throwError('Too many arguments');
+  }
+  else
+  {
+    const z1 = transformOperand(number1);
+    const z2 = transformOperand(number2);
+
+    const res = ComplexNumber.multiply(z1, z2);
+
+    console.log(res.toString());
+  }
+};
+
+const executeDiv = () => {
+  const number1 = process.argv[3];
+  const number2 = process.argv[4];
+
+  if (number1 === undefined || number2 === undefined)
+  {
+    throwError('Missing number argument');
+  }
+  else if (process.argv.length > 5)
+  {
+    throwError('Too many arguments');
+  }
+  else
+  {
+    const z1 = transformOperand(number1);
+    const z2 = transformOperand(number2);
+
+    const res = ComplexNumber.divide(z1, z2);
+
+    console.log(res.toString());
+  }
+};
+
 const command = process.argv[2];
 
 try
 {
   if(command === undefined)
   {
-    throw new Error('Missing command');
+    throwError('Missing command');
   }
   else if (command === 'mod')
   {
-    const number = process.argv[3];
-    if (number === undefined)
-    {
-      throw new Error('Missing number argument');
-    }
-    else if (process.argv.length > 4)
-    {
-      throw new Error('Too many arguments');
-    }
-    else
-    {
-      const z = transformOperand(number);
-      const mod = ComplexNumber.moduo(z);
-
-      console.log(mod);
-    }
-
+    executeMod();
   }
   else if (command === 'conj')
   {
-    const number = process.argv[3];
-    if (number === undefined)
-    {
-      throw new Error('Missing number argument');
-    }
-    else if (process.argv.length > 4)
-    {
-      throw new Error('Too many arguments');
-    }
-    else
-    {
-      const z = transformOperand(number);
-
-      const conj = ComplexNumber.conjugate(z);
-
-      console.log(conj.toString());
-    }
-
+    executeConj();
   }
   else if (command === 'add')
   {
-    const number1 = process.argv[3];
-    const number2 = process.argv[4];
-    if (number1 === undefined || number2 === undefined)
-    {
-      throw new Error('Missing number argument');
-    }
-    else if (process.argv.length > 5)
-    {
-      throw new Error('Too many arguments');
-    }
-    else
-    {
-      const z1 = transformOperand(number1);
-      const z2 = transformOperand(number2);
-
-      const res = ComplexNumber.add(z1, z2);
-
-      console.log(res.toString());
-    }
+    executeAdd();
   }
   else if (command === 'sub')
   {
-    const number1 = process.argv[3];
-    const number2 = process.argv[4];
-
-    if (number1 === undefined || number2 === undefined)
-    {
-      throw new Error('Missing number argument');
-    }
-    else if (process.argv.length > 5)
-    {
-      throw new Error('Too many arguments');
-    }
-    else
-    {
-      const z1 = transformOperand(number1);
-      const z2 = transformOperand(number2);
-
-      const res = ComplexNumber.subtract(z1, z2);
-
-      console.log(res.toString());
-    }
-
+    executeSub();
   }
   else if (command === 'mul')
   {
-    const number1 = process.argv[3];
-    const number2 = process.argv[4];
-
-    if (number1 === undefined || number2 === undefined)
-    {
-      throw new Error('Missing number argument');
-    }
-    else if (process.argv.length > 5)
-    {
-      throw new Error('Too many arguments');
-    }
-    else
-    {
-      const z1 = transformOperand(number1);
-      const z2 = transformOperand(number2);
-
-      const res = ComplexNumber.multiply(z1, z2);
-
-      console.log(res.toString());
-    }
+    executeMul();
   }
   else if (command === 'div')
   {
-    const number1 = process.argv[3];
-    const number2 = process.argv[4];
-
-    if (number1 === undefined || number2 === undefined)
-    {
-      throw new Error('Missing number argument');
-    }
-    else if (process.argv.length > 5)
-    {
-      throw new Error('Too many arguments');
-    }
-    else
-    {
-      const z1 = transformOperand(number1);
-      const z2 = transformOperand(number2);
-
-      const res = ComplexNumber.divide(z1, z2);
-
-      console.log(res.toString());
-    }
+    executeDiv();
   }
   else
   {
-    throw new Error('Unknown command');
+    throwError('Unknown command');
   }
 }
 catch (e)
