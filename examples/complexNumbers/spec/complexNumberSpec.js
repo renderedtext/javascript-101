@@ -1,9 +1,10 @@
-const ComplexNumber = require('../../src/complexNumber.js');
+const ComplexNumber = require('../src/complexNumber.js');
 
 describe('ComplexNumber', () => {
 
   let z1 = new ComplexNumber(1, 3);
   let z2 = new ComplexNumber(2, 1);
+  let z3 = new ComplexNumber(-1, -2);
 
   describe('constructor', () => {
     it('Creates object initialized  with params, if params are numbers', () => {
@@ -16,6 +17,20 @@ describe('ComplexNumber', () => {
     it('Throws error "invalid params" if parameters are not numbers', () => {
       expect(() => new ComplexNumber(2, 'not number')).toThrow(new Error('Invalid params'));
      });
+  });
+
+  describe('#toString', () => {
+    it('Returns string representation of complex number', () => {
+      const str = z1.toString();
+
+      expect(str).toBe('1 + 3i');
+    });
+
+    it('Returns string representation of complex number', () => {
+      const str = z3.toString();
+
+      expect(str).toBe('-1 - 2i');
+    });
   });
 
   describe('.validate', () => {

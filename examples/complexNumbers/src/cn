@@ -1,0 +1,183 @@
+#!/usr/bin/env node
+const ComplexNumber = require('./complexNumber.js');
+const ComplexNumberParser = require('./complexNumberParser.js');
+
+const transformOperand = number => {
+  let real, imag;
+
+  [real, imag] = ComplexNumberParser.parse(number);
+  [real, imag] = ComplexNumberParser.validateParts(real, imag);
+
+  return new ComplexNumber(real, imag)
+};
+
+const throwError = message => {
+  throw new Error(message);
+};
+
+const executeMod = () => {
+  const number = process.argv[3];
+
+  if (number === undefined)
+  {
+    throwError('Missing number argument');
+  }
+  else if (process.argv.length > 4)
+  {
+    throwError('Too many arguments');
+  }
+  else
+  {
+    const z = transformOperand(number);
+    const mod = ComplexNumber.moduo(z);
+
+    console.log(mod);
+  }
+};
+
+const executeConj = () => {
+  const number = process.argv[3];
+
+  if (number === undefined)
+  {
+    throwError('Missing number argument');
+  }
+  else if (process.argv.length > 4)
+  {
+    throwError('Too many arguments');
+  }
+  else
+  {
+    const z = transformOperand(number);
+    const conj = ComplexNumber.conjugate(z);
+
+    console.log(conj.toString());
+  }
+};
+
+const executeAdd = () => {
+  const number1 = process.argv[3];
+  const number2 = process.argv[4];
+
+  if (number1 === undefined || number2 === undefined)
+  {
+    throwError('Missing number argument');
+  }
+  else if (process.argv.length > 5)
+  {
+    throwError('Too many arguments');
+  }
+  else
+  {
+    const z1 = transformOperand(number1);
+    const z2 = transformOperand(number2);
+    const res = ComplexNumber.add(z1, z2);
+
+    console.log(res.toString());
+  }
+};
+
+const executeSub = () => {
+  const number1 = process.argv[3];
+  const number2 = process.argv[4];
+
+  if (number1 === undefined || number2 === undefined)
+  {
+    throwError('Missing number argument');
+  }
+  else if (process.argv.length > 5)
+  {
+    throwError('Too many arguments');
+  }
+  else
+  {
+    const z1 = transformOperand(number1);
+    const z2 = transformOperand(number2);
+    const res = ComplexNumber.subtract(z1, z2);
+
+    console.log(res.toString());
+  }
+};
+
+const executeMul = () => {
+  const number1 = process.argv[3];
+  const number2 = process.argv[4];
+
+  if (number1 === undefined || number2 === undefined)
+  {
+    throwError('Missing number argument');
+  }
+  else if (process.argv.length > 5)
+  {
+    throwError('Too many arguments');
+  }
+  else
+  {
+    const z1 = transformOperand(number1);
+    const z2 = transformOperand(number2);
+
+    const res = ComplexNumber.multiply(z1, z2);
+
+    console.log(res.toString());
+  }
+};
+
+const executeDiv = () => {
+  const number1 = process.argv[3];
+  const number2 = process.argv[4];
+
+  if (number1 === undefined || number2 === undefined)
+  {
+    throwError('Missing number argument');
+  }
+  else if (process.argv.length > 5)
+  {
+    throwError('Too many arguments');
+  }
+  else
+  {
+    const z1 = transformOperand(number1);
+    const z2 = transformOperand(number2);
+
+    const res = ComplexNumber.divide(z1, z2);
+
+    console.log(res.toString());
+  }
+};
+
+const command = process.argv[2];
+
+try
+{
+  switch(command)
+  {
+    case undefined:
+      throwError('Missing command');
+      break;
+    case 'mod':
+      executeMod();
+      break;
+    case 'conj':
+      executeConj();
+      break;
+    case 'add':
+      executeAdd();
+      break;
+    case 'sub':
+      executeSub();
+      break;
+    case 'mul':
+      executeMul();
+      break;
+    case 'div':
+      executeDiv();
+      break;
+    default:
+      throwError('Unknown command');
+      break;
+  }
+}
+catch (e)
+{
+  console.log(e.message);
+}
