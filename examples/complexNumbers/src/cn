@@ -149,37 +149,32 @@ const command = process.argv[2];
 
 try
 {
-  if(command === undefined)
+  switch(command)
   {
-    throwError('Missing command');
-  }
-  else if (command === 'mod')
-  {
-    executeMod();
-  }
-  else if (command === 'conj')
-  {
-    executeConj();
-  }
-  else if (command === 'add')
-  {
-    executeAdd();
-  }
-  else if (command === 'sub')
-  {
-    executeSub();
-  }
-  else if (command === 'mul')
-  {
-    executeMul();
-  }
-  else if (command === 'div')
-  {
-    executeDiv();
-  }
-  else
-  {
-    throwError('Unknown command');
+    case undefined:
+      throwError('Missing command');
+      break;
+    case 'mod':
+      executeMod();
+      break;
+    case 'conj':
+      executeConj();
+      break;
+    case 'add':
+      executeAdd();
+      break;
+    case 'sub':
+      executeSub();
+      break;
+    case 'mul':
+      executeMul();
+      break;
+    case 'div':
+      executeDiv();
+      break;
+    default:
+      throwError('Unknown command');
+      break;
   }
 }
 catch (e)
