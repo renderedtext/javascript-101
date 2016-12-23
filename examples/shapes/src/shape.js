@@ -11,6 +11,9 @@ class Shape {
 
   getPerimeter() {
   }
+
+  toString() {
+  }
 }
 
 module.exports = Shape;

@@ -13,6 +13,10 @@ class Circle extends Shape {
   getPerimeter() {
     return 2*this.r*Math.PI;
   }
+
+  toString() {
+    return `${this.r}`
+  }
 }
 
 module.exports = Circle;

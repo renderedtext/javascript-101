@@ -18,6 +18,10 @@ class Triangle extends Shape {
   getPerimeter() {
     return this.a + this.b + this.c;
   }
+
+  toString() {
+    return `${this.a}, ${this.b}, ${this.c}`;
+  }
 }
 
 module.exports = Triangle;

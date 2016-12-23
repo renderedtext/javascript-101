@@ -7,16 +7,23 @@ const isPositiveNumber = number => {
   return (!isNaN(number) && number > 0);
 };
 
-const validateSquare = data => {
-  return isPositiveNumber(data);
+const validateSquareParams = data => {
+  if (data.length !== 1)
+  {
+    return false;
+  }
+  else
+  {
+    return isPositiveNumber(data[0]);
+  }
 };
 
 const convertToSquare = data => {
-  const a = parseFloat(data);
+  data = data.map(parseFloat);
 
-  if (validateSquare(a))
+  if (validateSquareParams(data))
   {
-    return new Square(a);
+    return new Square(data[0]);
   }
   else
   {
@@ -24,34 +31,88 @@ const convertToSquare = data => {
   }
 };
 
-const validateCircle = data => {
-  return isPositiveNumber(data);
+const validateCircleParams = data => {
+  if (data.length !== 1)
+  {
+    return false;
+  }
+  else
+  {
+    return isPositiveNumber(data);
+  }
 };
 
 const convertToCircle = data => {
-  const r = parseFloat(data);
+  data = data.map(parseFloat);
 
-  if (validateCircle(r))
+  if (validateCircleParams(data))
   {
-    return new Circle(r);
+    return new Circle(data[0]);
   }
   else
   {
     throw new Error('Invalid data for Circle');
   }
+};
 
+const validateRectangleParams = data => {
+  if (data.length !== 2)
+  {
+    return false;
+  }
+  else
+  {
+    return isPositiveNumber(data[0]) && isPositiveNumber(data[1])
+  }
+};
+
+const convertToRectangle = data => {
+  data = data.map(parseFloat);
+
+  if (validateRectangleParams(data))
+  {
+    return new Rectangle(data[0], data[1]);
+  }
+  else
+  {
+    throw new Error('Invalid data for Rectangle');
+  }
+};
+
+const validateTriangleParams = data => {
+  if (data.length !== 3)
+  {
+    return false;
+  }
+  else
+  {
+    return isPositiveNumber(data[0]) && isPositiveNumber(data[1]) && isPositiveNumber(data[2]);
+  }
+};
+
+const convertToTriangle = data => {
+  data = data.map(parseFloat);
+
+  if (validateTriangleParams(data))
+  {
+    return new Triangle(data[0], data[1], data[2]);
+  }
+  else
+  {
+    throw new Error('Invalid data for triangle');
+  }
 };
 
 module.exports.convert = (shape, data) => {
   switch(shape) {
     case 'triangle':
-      console.log('triangle');
+      return convertToTriangle(data);
       break;
     case 'square':
       return convertToSquare(data);
       break;
     case 'rectangle':
-      console.log('rectangle');
+      return convertToRectangle(data);
       break;
     case 'circle':
       return convertToCircle(data);

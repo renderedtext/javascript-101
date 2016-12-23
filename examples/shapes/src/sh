@@ -3,37 +3,45 @@ const ShapeParser = require('./shapeParser.js');
 
 const program = require('commander');
 
-const handle = (shape, coords) => {
-  try
+const handle = (shape, coords, areaFlag, perimeterFlag) => {
+  const obj = ShapeParser.convert(shape, coords);
+  console.log(obj.toString());
+  if (!areaFlag && !perimeterFlag)
   {
-    const obj = ShapeParser.convert(shape, coords);
-    if (program.area)
-    {
-      console.log(obj.getArea());
-    }
-    else if (program.perimeter)
-    {
-      console.log(obj.getPerimeter());
-    }
-    else
-    {
-      console.log(obj.getArea());
-      console.log(obj.getPerimeter());
-    }
+    console.log(obj.getArea());
+    console.log(obj.getPerimeter());
   }
-  catch(e)
+  else
   {
-    console.log(e.message);
-    console.log(e.stack);
+    if (areaFlag)
+    {
+      console.log(obj.getArea());
+    }
+    if (perimeterFlag)
+    {
+      console.log(obj.getPerimeter());
+    }
   }
 };
 
 program
-  .command('shape <shape> <coords>')
   .description('do calculations for shape')
+  .option('-s --shape <sh>', 'Calculate for Shape') //required flag with parameter
   .option('-a --area', 'Calculate Area')
-  .option('-p --perimeter', 'Calculate Perimeter')
-  .action(handle);
+  .option('-p --perimeter', 'Calculate Perimeter');
 
 program.parse(process.argv);
 
+try
+{
+  if (program.shape) {
+    handle(program.shape, program.args, program.area, program.perimeter);
+  }
+  else {
+    throw new Error('No shape specified');
+  }
+}
+catch(e)
+{
+  console.log(e.message);
+}

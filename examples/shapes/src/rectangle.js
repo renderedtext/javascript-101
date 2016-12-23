@@ -14,6 +14,10 @@ class Rectangle extends Shape {
   getPerimeter() {
     return 2*this.a + 2*this.b;
   }
+
+  toString() {
+    return `${this.a}, ${this.b}`
+  }
 }
 
 module.exports = Rectangle;
