@@ -9,7 +9,7 @@ describe('Triangle', () => {
     it('Returns area', () => {
       const p = triangle.getArea();
 
-      expect(p).to.equal(6);
+      expect(p).to.equal(6.00);
     });
   });
 
@@ -17,7 +17,7 @@ describe('Triangle', () => {
     it('Returns perimeter', () => {
       const o = triangle.getPerimeter();
 
-      expect(o).to.equal(12);
+      expect(o).to.equal(12.00);
     });
   });
 });

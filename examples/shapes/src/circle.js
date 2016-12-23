@@ -7,11 +7,13 @@ class Circle extends Shape {
   }
 
   getArea() {
-    return Math.pow(this.r, 2)*Math.PI;
+    const area = (Math.pow(this.r, 2)*Math.PI);
+    return this.round(area);
   }
 
   getPerimeter() {
-    return 2*this.r*Math.PI;
+    const perimeter = 2*this.r*Math.PI;
+    return this.round(perimeter);
   }
 
   toString() {

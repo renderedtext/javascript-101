@@ -9,7 +9,7 @@ describe('Circle', () => {
     it('returns area', () => {
       const area = circle.getArea();
 
-      expect(area).to.equal(78.53981633974483);
+      expect(area).to.equal(78.54);
     });
   });
 
@@ -17,7 +17,7 @@ describe('Circle', () => {
     it('returns perimeter', () => {
       const perimeter = circle.getPerimeter();
 
-      expect(perimeter).to.equal(31.41592653589793);
+      expect(perimeter).to.equal(31.42);
     });
   });
 });

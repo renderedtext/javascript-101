@@ -99,7 +99,7 @@ const convertToTriangle = data => {
   }
   else
   {
-    throw new Error('Invalid data for triangle');
+    throw new Error('Invalid data for Triangle');
   }
 };
 

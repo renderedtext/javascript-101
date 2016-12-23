@@ -9,7 +9,7 @@ describe('square', () => {
     it('Returns area', () => {
       const p = square.getArea();
 
-      expect(p).to.equal(25);
+      expect(p).to.equal(25.00);
     });
   });
 
@@ -17,7 +17,7 @@ describe('square', () => {
     it('Returns perimeter', () => {
       const o = square.getPerimeter();
 
-      expect(o).to.equal(20);
+      expect(o).to.equal(20.00);
     });
   })
 });

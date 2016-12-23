@@ -8,11 +8,13 @@ class Rectangle extends Shape {
   }
 
   getArea() {
-    return this.a*this.b;
+    const area = this.a*this.b;
+    return this.round(area);
   }
 
   getPerimeter() {
-    return 2*this.a + 2*this.b;
+    const perimeter = 2*this.a + 2*this.b;
+    return this.round(perimeter);
   }
 
   toString() {

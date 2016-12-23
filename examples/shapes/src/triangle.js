@@ -10,13 +10,14 @@ class Triangle extends Shape {
 
   getArea() {
     const s = (this.a + this.b + this.c)/2;
-    const pSquare = s*(s - this.a)*(s - this.b)*(s - this.c);
+    const area = Math.sqrt(s*(s - this.a)*(s - this.b)*(s - this.c));
 
-    return Math.sqrt(pSquare);
+    return this.round(area);
   }
 
   getPerimeter() {
-    return this.a + this.b + this.c;
+    const perimeter = this.a + this.b + this.c;
+    return this.round(perimeter);
   }
 
   toString() {

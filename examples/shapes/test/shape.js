@@ -6,7 +6,7 @@ const expect = require('chai').expect;
 describe('Shape', () => {
   describe('constructor', () => {
     it('Throws error when you try instantiate object of class Shape', () => {
-      expect(() => new Shape()).to.throw(new Error('ez'));
+      expect(() => new Shape()).to.throw(Error);
     });
 
     it('Instantiates Shape when you try to instantiate object of subclass', () => {

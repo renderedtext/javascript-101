@@ -9,7 +9,7 @@ describe('Rectangle', () => {
     it('Returns area', () => {
       const p = rec.getArea();
 
-      expect(p).to.equal(20);
+      expect(p).to.equal(20.00);
     });
   });
 
@@ -17,7 +17,7 @@ describe('Rectangle', () => {
     it('Returns perimeter', () => {
       const o = rec.getPerimeter();
 
-      expect(o).to.equal(18);
+      expect(o).to.equal(18.00);
     });
   });
 });
