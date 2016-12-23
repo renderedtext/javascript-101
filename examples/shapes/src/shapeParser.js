@@ -3,25 +3,27 @@ const Rectangle = require('./rectangle.js');
 const Circle = require('./circle.js');
 const Triangle = require('./triangle');
 
-const isPositiveNumber = number => {
+const self = module.exports;
+
+module.exports.isPositiveNumber = number => {
   return (!isNaN(number) && number > 0);
 };
 
-const validateSquareParams = data => {
+module.exports.validateSquareParams = data => {
   if (data.length !== 1)
   {
     return false;
   }
   else
   {
-    return isPositiveNumber(data[0]);
+    return self.isPositiveNumber(data[0]);
   }
 };
 
-const convertToSquare = data => {
+module.exports.convertToSquare = data => {
   data = data.map(parseFloat);
 
-  if (validateSquareParams(data))
+  if (self.validateSquareParams(data))
   {
     return new Square(data[0]);
   }
@@ -31,21 +33,21 @@ const convertToSquare = data => {
   }
 };
 
-const validateCircleParams = data => {
+module.exports.validateCircleParams = data => {
   if (data.length !== 1)
   {
     return false;
   }
   else
   {
-    return isPositiveNumber(data);
+    return self.isPositiveNumber(data);
   }
 };
 
-const convertToCircle = data => {
+module.exports.convertToCircle = data => {
   data = data.map(parseFloat);
 
-  if (validateCircleParams(data))
+  if (self.validateCircleParams(data))
   {
     return new Circle(data[0]);
   }
@@ -55,21 +57,21 @@ const convertToCircle = data => {
   }
 };
 
-const validateRectangleParams = data => {
+module.exports.validateRectangleParams = data => {
   if (data.length !== 2)
   {
     return false;
   }
   else
   {
-    return isPositiveNumber(data[0]) && isPositiveNumber(data[1])
+    return self.isPositiveNumber(data[0]) && self.isPositiveNumber(data[1])
   }
 };
 
-const convertToRectangle = data => {
+module.exports.convertToRectangle = data => {
   data = data.map(parseFloat);
 
-  if (validateRectangleParams(data))
+  if (self.validateRectangleParams(data))
   {
     return new Rectangle(data[0], data[1]);
   }
@@ -79,21 +81,21 @@ const convertToRectangle = data => {
   }
 };
 
-const validateTriangleParams = data => {
+module.exports.validateTriangleParams = data => {
   if (data.length !== 3)
   {
     return false;
   }
   else
   {
-    return isPositiveNumber(data[0]) && isPositiveNumber(data[1]) && isPositiveNumber(data[2]);
+    return self.isPositiveNumber(data[0]) && self.isPositiveNumber(data[1]) && self.isPositiveNumber(data[2]);
   }
 };
 
-const convertToTriangle = data => {
+module.exports.convertToTriangle = data => {
   data = data.map(parseFloat);
 
-  if (validateTriangleParams(data))
+  if (self.validateTriangleParams(data))
   {
     return new Triangle(data[0], data[1], data[2]);
   }
@@ -102,23 +104,3 @@ const convertToTriangle = data => {
     throw new Error('Invalid data for Triangle');
   }
 };
-
-module.exports.convert = (shape, data) => {
-  switch(shape) {
-    case 'triangle':
-      return convertToTriangle(data);
-      break;
-    case 'square':
-      return convertToSquare(data);
-      break;
-    case 'rectangle':
-      return convertToRectangle(data);
-      break;
-    case 'circle':
-      return convertToCircle(data);
-      break;
-    default:
-      throw new Error('Unknown shape');
-  }
-};
-
