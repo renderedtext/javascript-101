@@ -1,0 +1,49 @@
+#!/usr/bin/env node
+const CliShapeParser = require('./cliShapeParser.js');
+const program = require('commander');
+
+const printResult = (name, res) => {
+  console.log(`${name}: ${res}`);
+};
+
+const handle = (shapeCommand, coords, areaFlag, perimeterFlag) => {
+  const shape = CliShapeParser.convert(shapeCommand, coords);
+  if (!areaFlag && !perimeterFlag)
+  {
+    printResult('Area', shape.getArea());
+    printResult('Perimeter', shape.getPerimeter());
+  }
+  else
+  {
+    if (areaFlag)
+    {
+      printResult('Area', shape.getArea());
+    }
+    if (perimeterFlag)
+    {
+      printResult('Perimeter', shape.getPerimeter());
+    }
+  }
+};
+
+program
+  .description('do calculations for shape')
+  .option('-s --shape <sh>', 'Calculate for Shape') //required flag with parameter
+  .option('-a --area', 'Calculate Area')
+  .option('-p --perimeter', 'Calculate Perimeter');
+
+program.parse(process.argv);
+
+try
+{
+  if (program.shape) {
+    handle(program.shape, program.args, program.area, program.perimeter);
+  }
+  else {
+    throw new Error('No shape specified');
+  }
+}
+catch(e)
+{
+  console.log(e.message);
+}
