@@ -6,22 +6,22 @@ const printResult = (name, res) => {
   console.log(`${name}: ${res}`);
 };
 
-const handle = (shape, coords, areaFlag, perimeterFlag) => {
-  const obj = CliShapeParser.convert(shape, coords);
+const handle = (shapeCommand, coords, areaFlag, perimeterFlag) => {
+  const shape = CliShapeParser.convert(shapeCommand, coords);
   if (!areaFlag && !perimeterFlag)
   {
-    printResult('Area', obj.getArea());
-    printResult('Perimeter', obj.getPerimeter());
+    printResult('Area', shape.getArea());
+    printResult('Perimeter', shape.getPerimeter());
   }
   else
   {
     if (areaFlag)
     {
-      printResult('Area', obj.getArea());
+      printResult('Area', shape.getArea());
     }
     if (perimeterFlag)
     {
-      printResult('Perimeter', obj.getPerimeter());
+      printResult('Perimeter', shape.getPerimeter());
     }
   }
 };

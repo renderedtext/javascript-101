@@ -2,9 +2,9 @@ const exec = require('child_process').exec;
 const expect = require('chai').expect;
 
 
-const executeSystemCall = str => {
+const executeSystemCall = command => {
   return new Promise((resolve, reject) => {
-    exec(str, (error, stdout, stderr) => {
+    exec(command, (error, stdout, stderr) => {
       if (error)
       {
         reject(error);
