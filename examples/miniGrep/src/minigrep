@@ -90,6 +90,5 @@ try {
   handleCommand(program.args, program.recursive);
 } catch(e) {
   console.log(e.message);
-  console.log(e.stack);
 }
 
