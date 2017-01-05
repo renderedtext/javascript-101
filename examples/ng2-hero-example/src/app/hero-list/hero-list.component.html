@@ -1,0 +1,9 @@
+<div>
+  <ul class="list-group">
+    <li *ngFor="let hero of heroes; let idx = index" class="list-group-item" (click)="selectHero(hero)">
+      {{hero.name}}<span class="badge">{{idx}}</span>
+      <button (click)="removeHero(idx)" class="btn btn-default pull-right">delete</button>
+    </li>
+  </ul>
+  <app-hero-detail *ngIf="selectedHero !== undefined" [hero]="selectedHero"></app-hero-detail>
+</div>
