@@ -38,24 +38,33 @@ describe('HeroDetailComponent', () => {
     expect(component.hero.dmg).toEqual(55);
   });
 
-  it('should have p tag with hero name', async(() => {
-    expect(fixture.debugElement.query(By.css('#name')).textContent).toContain(hero.name);
-  }));
+  it('should have p tag with hero name', () => {
+    const compiled = fixture.debugElement.query(By.css('#name'));
+    const el = compiled.nativeElement;
+    expect(el.textContent).toContain(component.hero.name);
+  });
 
-  it('should have p tag with hero type', async(() => {
-    expect(fixture.debugElement.query(By.css('#type')).textContent).toContain(hero.type);
-  }));
+  it('should have p tag with hero type', () => {
+    const compiled = fixture.debugElement.query(By.css('#type'));
+    const el = compiled.nativeElement;
+    expect(el.textContent).toContain(component.hero.type);
+  });
 
-  it('should have p tag with hero health', async(() => {
-    el = fixture.nativeElement.debugElement.query(By.css('h1'));
-    expect(el.textContent).toContain('Details');
-  }));
+  it('should have p tag with hero health', () => {
+    const compiled = fixture.debugElement.query(By.css('#health'));
+    const el = compiled.nativeElement;
+    expect(el.textContent).toContain(component.hero.health);
+  });
 
   it('should have p tag with hero mana', () => {
-  
+    const compiled = fixture.debugElement.query(By.css('#mana'));
+    const el = compiled.nativeElement;
+    expect(el.textContent).toContain(component.hero.mana);
   });
 
   it('should have p tag with hero damage', () => {
-  
+    const compiled = fixture.debugElement.query(By.css('#dmg'));
+    const el = compiled.nativeElement;
+    expect(el.textContent).toContain(component.hero.dmg);
   });
 });

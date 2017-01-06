@@ -26,5 +26,4 @@ export class NewHeroFormComponent implements OnInit {
     const hero = new Hero(this.name, this.type, this.health, this.mana, this.dmg);
     this.heroService.addHero(hero);
   }
-
 }

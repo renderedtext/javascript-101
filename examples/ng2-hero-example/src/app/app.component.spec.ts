@@ -1,9 +1,16 @@
 /* tslint:disable:no-unused-variable */
 
 import { TestBed, async } from '@angular/core/testing';
+import { FormsModule } from '@angular/forms';
+import { By } from '@angular/platform-browser';
+
 import { AppComponent } from './app.component';
 import { HeroListComponent } from './hero-list/hero-list.component';
 import { HeroDetailComponent } from './hero-detail/hero-detail.component';
+import { NewHeroFormComponent } from './new-hero-form/new-hero-form.component';
+
+import { HeroService } from './services/hero.service';
+import { heroServiceStub } from './services/hero.service.stub';
 
 describe('AppComponent', () => {
 
@@ -12,11 +19,16 @@ describe('AppComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
+      imports: [
+        FormsModule
+      ],
       declarations: [
         AppComponent,
         HeroListComponent,
-        HeroDetailComponent
+        HeroDetailComponent,
+        NewHeroFormComponent
       ],
+      providers: [{ provide: HeroService, useValue: heroServiceStub }]
     });
     TestBed.compileComponents();
 
@@ -34,8 +46,9 @@ describe('AppComponent', () => {
 
   it('should render title in a h1 tag', async(() => {
     fixture.detectChanges();
-    let compiled = fixture.debugElement.nativeElement;
-    expect(compiled.querySelector('h1').textContent).toContain(appComp.title);
+    const compiled = fixture.debugElement.query(By.css('h1'));
+    const el = compiled.nativeElement;
+    expect(el.textContent).toContain(appComp.title);
   }));
 
   it(`should have as description 'View, add and remove heroes'`, async(() => {
@@ -44,8 +57,9 @@ describe('AppComponent', () => {
 
   it('should render description in small tag', async(() => {
     fixture.detectChanges();
-    let compiled = fixture.debugElement.nativeElement;
-    expect(compiled.querySelector('small').textContent).toContain(appComp.description);
+    const compiled = fixture.debugElement.query(By.css('small'));
+    const el = compiled.nativeElement;
+    expect(el.textContent).toContain(appComp.description);
   }));
 
 });

@@ -12,7 +12,7 @@ export class HeroDetailComponent implements OnInit {
   @Input() hero: Hero;
   title: string;
 
-  constructor(private heroService: HeroService) { }
+  constructor() { }
 
   ngOnInit() {
     this.title = "Hero Details";
