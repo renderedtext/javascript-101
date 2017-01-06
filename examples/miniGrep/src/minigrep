@@ -1,0 +1,94 @@
+#!/usr/bin/env node
+const program = require('commander');
+const fs = require('fs');
+const path = require('path');
+
+const findMatchesInFile = (path, regexArg) => {
+  const regex = new RegExp(regexArg, 'g');
+  const text = readFile(path);
+  const matches = [];
+  let match;
+  while ((match = regex.exec(text)) != null) {
+    matches.push(match.index);
+  }
+  return formatMatches(matches, path);
+};
+
+const formatMatches =  (matches, path) => {
+  const formatedMatches = [];
+  for (const match of matches) {
+    const formatedMatch = {
+      index: match,
+      file: path
+    };
+    formatedMatches.push(formatedMatch);
+  }
+
+  return formatedMatches;
+};
+
+const printResult = matches => {
+  if (matches.length === 0) {
+    console.log('No matches found');
+  } else {
+    let res = ''
+    for (const match of matches) {
+      res = `${res}\nindex: ${match.index}, file: ${match.file}`;
+    };
+    console.log(res.trim());
+  }
+};
+
+const readFile = fileName => {
+  return fs.readFileSync(fileName, 'utf8');
+};
+
+const readDir = (srcPath, files) => {
+  const dirs =  fs.readdirSync(srcPath);
+  for (let dir of dirs) {
+    dir = path.join(srcPath, dir);
+    if (fs.statSync(dir).isDirectory()) {
+      readDir(dir, files);
+    } else {
+      files.push(dir);
+    }
+  };
+};
+
+const handleCommand = (args, isRecursive) => {
+  if (args.length !== 2 || args[0] === undefined || args[1] === undefined) {
+    throw new Error('Wrong arguments');
+  } else {
+    const regex = args[0];
+    const path = args[1];
+    const matches = []
+
+    if (isRecursive) {
+      const files = [];
+
+      readDir(path, files);
+      for (const file of files) {
+        const match = findMatchesInFile(file, regex);
+        matches.push.apply(matches, match);
+      }
+    } else {
+      const match = findMatchesInFile(path, regex);
+      matches.push.apply(matches, match);
+    }
+
+    printResult(matches);
+  };
+
+};
+
+program
+  .description('mini grep')
+  .option('-r --recursive', 'for directory')
+  .parse(process.argv);
+
+try {
+  handleCommand(program.args, program.recursive);
+} catch(e) {
+  console.log(e.message);
+}
+
