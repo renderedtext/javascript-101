@@ -1,13 +1,16 @@
 import React, { Component } from 'react';
 
 import Input from '../Input/Input';
-import Hero from '../models/hero';
 
 class NewHeroForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      hero: new Hero('', '', 0, 0, 0)
+      hero: { name: '',
+              type: '',
+              health: 0,
+              mana: 0,
+              dmg: 0 }
     };
   }
   render() {
