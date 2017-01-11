@@ -1,19 +1,15 @@
 import React, { Component } from 'react';
+import axios from 'axios';
 
 import HeroListItem from '../HeroListItem/HeroListItem';
 import NewHeroForm from '../NewHeroForm/NewHeroForm';
 import HeroDetail from '../HeroDetail/HeroDetail';
-import Hero from '../models/hero';
 
 class HeroList extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      heroes: [
-        new Hero('Zed', 'Assassin', 600, 0, 70),
-        new Hero('Shen', 'Tank', 700, 0, 60),
-        new Hero('Sona', 'Support', 550, 300, 50)
-      ],
+      heroes: [],
       hero: null
     };
   }
@@ -23,7 +19,7 @@ class HeroList extends Component {
         <h1>Heroes</h1>
         <ul className="list-group">
           { this.state.heroes.map( (hero, index) =>
-              <HeroListItem selectHero = { this.selectHero } hero= { hero } name={ hero.name } key={ index }
+              <HeroListItem selectHero={ this.selectHero } hero={ hero } name={ hero.name } key={ index }
                 idx={ index } remove={ this.removeHero } />
             )
           }
@@ -36,11 +32,24 @@ class HeroList extends Component {
     );
   }
   removeHero = idx => {
+    axios.delete(`http://localhost:3001/hero/${idx}`)
+      .then(response => {
+      })
+      .catch(error => {
+        console.log(error);
+      });
     this.setState({
-      heroes: this.state.heroes.filter((hero, index) => index !== idx)
+      heroes: this.state.heroes.filter((hero, index) => index !== idx),
+      hero: null
     });
   };
   addHero = hero => {
+    axios.post('http://localhost:3001/hero', hero)
+      .then(response => {
+      })
+      .catch(error => {
+        console.log(error);
+      });
     this.setState({
       heroes: this.state.heroes.concat(hero)
     });
@@ -49,6 +58,17 @@ class HeroList extends Component {
     this.setState({
       hero: hero
     });
+  }
+  componentDidMount = () => {
+    axios.get('http://localhost:3001/heroes')
+      .then( response => {
+        this.setState({
+          heroes: response.data
+        });
+      })
+      .catch( error => {
+        console.log(error);
+      });
   }
 }
 
