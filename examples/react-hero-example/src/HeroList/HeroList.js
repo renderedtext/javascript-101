@@ -1,15 +1,13 @@
 import React, { Component } from 'react';
-import axios from 'axios';
 
 import HeroListItem from '../HeroListItem/HeroListItem';
 import NewHeroForm from '../NewHeroForm/NewHeroForm';
 import HeroDetail from '../HeroDetail/HeroDetail';
 
 class HeroList extends Component {
-  constructor(props) {
-    super(props);
+  constructor() {
+    super();
     this.state = {
-      heroes: [],
       hero: null
     };
   }
@@ -18,57 +16,23 @@ class HeroList extends Component {
       <div className="container">
         <h1>Heroes</h1>
         <ul className="list-group">
-          { this.state.heroes.map( (hero, index) =>
-              <HeroListItem selectHero={ this.selectHero } hero={ hero } name={ hero.name } key={ index }
-                idx={ index } remove={ this.removeHero } />
+          { this.props.heroes.map((hero, index) =>
+              <HeroListItem selectHero={ this.selectHero } hero={ hero } name={ hero.name }
+                idx={ index } remove={ this.props.removeHero } key={ index } />
             )
           }
         </ul>
         { this.state.hero !== null &&
           <HeroDetail hero={ this.state.hero } />
         }
-        <NewHeroForm addHero={ this.addHero } />
+        <NewHeroForm addHero={ this.props.addHero } />
       </div>
     );
-  }
-  removeHero = idx => {
-    axios.delete(`http://localhost:3001/hero/${idx}`)
-      .then(response => {
-      })
-      .catch(error => {
-        console.log(error);
-      });
-    this.setState({
-      heroes: this.state.heroes.filter((hero, index) => index !== idx),
-      hero: null
-    });
-  };
-  addHero = hero => {
-    axios.post('http://localhost:3001/hero', hero)
-      .then(response => {
-      })
-      .catch(error => {
-        console.log(error);
-      });
-    this.setState({
-      heroes: this.state.heroes.concat(hero)
-    });
   }
   selectHero = hero => {
     this.setState({
       hero: hero
     });
-  }
-  componentDidMount = () => {
-    axios.get('http://localhost:3001/heroes')
-      .then( response => {
-        this.setState({
-          heroes: response.data
-        });
-      })
-      .catch( error => {
-        console.log(error);
-      });
   }
 }
 
