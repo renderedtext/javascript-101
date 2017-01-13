@@ -17,8 +17,11 @@ class HeroList extends Component {
         <h1>Heroes</h1>
         <ul className="list-group">
           { this.props.heroes.map((hero, index) =>
-              <HeroListItem selectHero={ this.selectHero } hero={ hero } name={ hero.name }
-                idx={ index } remove={ this.props.removeHero } key={ index } />
+              <HeroListItem selectHero={ this.selectHero }
+                            hero={ hero } name={ hero.name }
+                            idx={ index }
+                            removeHero={ this.props.removeHero }
+                            key={ index } />
             )
           }
         </ul>

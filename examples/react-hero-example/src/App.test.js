@@ -1,8 +1,23 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { shallow, mount } from 'enzyme';
+import { expect } from 'chai';
+
 import App from './App';
 
-it('renders without crashing', () => {
-  const div = document.createElement('div');
-  ReactDOM.render(<App />, div);
+describe('<App />', () => {
+  const wrapper = shallow(<App title="Test" />);
+
+  it('should have h1 tag', () => {
+    expect(wrapper.find('h1')).to.have.length(1);
+  });
+
+  it('should render title prop in h1 tag', () => {
+    const h1 = wrapper.find('h1');
+    expect(h1.text()).to.equal('Test');
+  });
+
+  it('should have HeroListContainer component', () => {
+    expect(wrapper.find('HeroListContainer')).to.have.length(1);
+  });
+
 });

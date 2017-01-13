@@ -10,8 +10,12 @@ class Input extends Component {
   render() {
     return (
       <div className="form-group">
-        <input value={ this.state.value } onChange={ this.handleChange }
-          className="form-control" type={ this.props.type } placeholder={ this.props.name } name={ this.props.name } />
+        <input value={ this.state.value }
+               onChange={ this.handleChange }
+               className="form-control"
+               type={ this.props.type }
+               placeholder={ this.props.name }
+               name={ this.props.name } />
       </div>
     );
   }
