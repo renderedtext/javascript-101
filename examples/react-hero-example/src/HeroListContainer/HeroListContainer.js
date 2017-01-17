@@ -21,14 +21,13 @@ class HeroListContainer extends Component {
   componentDidMount = () => {
     axios.get(`${this.url}/heroes`)
       .then(response => {
-        this.setState({
+       this.setState({
           heroes: response.data
         });
       })
       .catch(error => {
         console.log(error);
-      });
-
+     });
   }
   addHero = hero => {
     axios.post(`${this.url}/hero`, hero)
@@ -37,10 +36,10 @@ class HeroListContainer extends Component {
           this.setState({
             heroes: this.state.heroes.concat(hero)
           });
-        }
+       }
       })
       .catch(error => {
-        console.log(error);
+        console.log(error.message);
       });
   }
   removeHero = idx => {
