@@ -1,7 +1,7 @@
 import ReactTestUtils from 'react-addons-test-utils';
 import React from 'react';
 import { expect } from 'chai';
-import { shallow, mount } from 'enzyme';
+import { mount } from 'enzyme';
 import sinon from 'sinon';
 
 import ReactDOM from 'react-dom';
@@ -18,10 +18,6 @@ describe('<Input />', () => {
                            name="Zed"
                            handleInputChange={ mockFunction }/>);
     input = wrapper.find('input');
-  });
-
-  it('doesn\'t crash', () => {
-    shallow(<Input />);
   });
 
   it('should render one div element', () => {

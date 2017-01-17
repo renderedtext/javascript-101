@@ -10,8 +10,13 @@ describe('<HeroList />', () => {
     { name: 'Zed', type: 'Assaissin', health: 600, mana: 0, dmg: 70 },
     { name: 'Shen', type: 'Tank', health: 700, mana: 0, dmg: 60 }
   ];
-  const wrapper = mount(<HeroList heroes={ heroesMock } />);
-  const shallowWrapper = shallow(<HeroList heroes={ heroesMock } />);
+  let wrapper;
+  let shallowWrapper;
+
+  beforeEach(() => {
+    wrapper = mount(<HeroList heroes={ heroesMock } />);
+    shallowWrapper = shallow(<HeroList heroes={ heroesMock } />);
+  });
 
   it('should have hero state defined', () => {
     expect(wrapper.state('hero')).to.not.be.undefined;
@@ -65,7 +70,6 @@ describe('<HeroList />', () => {
 
   it('should change state when selectHero is called', () => {
     wrapper.setState({ hero: null });
-    expect(wrapper.state('hero')).to.equal(null);
     wrapper.instance().selectHero(heroesMock[1]);
     expect(wrapper.state('hero')).to.equal(heroesMock[1]);
   });

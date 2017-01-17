@@ -6,7 +6,11 @@ import HeroDetail from './HeroDetail';
 
 describe('<HeroDetail />', () => {
   const hero = { name: 'Zed', type: 'Assaissin', health: 600, mana: 0, dmg: 70 };
-  const wrapper = mount(<HeroDetail hero={ hero } />);
+  let wrapper;
+
+  beforeEach(() => {
+    wrapper = mount(<HeroDetail hero={ hero } />);
+  });
 
   it('should have hero prop defined', () => {
     expect(wrapper.props().hero).to.not.be.undefined;

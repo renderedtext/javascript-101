@@ -1,11 +1,14 @@
 import React from 'react';
-import { shallow, mount } from 'enzyme';
+import { shallow } from 'enzyme';
 import { expect } from 'chai';
 
 import App from './App';
 
 describe('<App />', () => {
-  const wrapper = shallow(<App title="Test" />);
+  let wrapper;
+  beforeEach(() => {
+    wrapper = shallow(<App title="Test" />);
+  });
 
   it('should have h1 tag', () => {
     expect(wrapper.find('h1')).to.have.length(1);

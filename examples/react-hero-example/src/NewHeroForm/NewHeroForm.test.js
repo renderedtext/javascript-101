@@ -6,8 +6,12 @@ import sinon from 'sinon';
 import NewHeroForm from './NewHeroForm';
 
 describe('<NewHeroForm />', () =>{
-  const addHeroMock = sinon.spy();
-  const wrapper = mount(<NewHeroForm addHero={ addHeroMock } />);
+  let addHeroMock;
+  let wrapper;
+  beforeEach(() => {
+    addHeroMock = sinon.spy();
+    wrapper = mount(<NewHeroForm addHero={ addHeroMock } />);
+  });
 
   it('should have hero state defined', () => {
     expect(wrapper.state('hero')).to.not.be.undefined;
