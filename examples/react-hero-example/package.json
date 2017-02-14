@@ -1,0 +1,26 @@
+{
+  "name": "hero-example",
+  "version": "0.1.0",
+  "private": true,
+  "devDependencies": {
+    "axios-mock-adapter": "^1.7.1",
+    "chai": "^3.5.0",
+    "enzyme": "^2.7.0",
+    "react-addons-test-utils": "^15.4.2",
+    "react-dom": "^15.4.2",
+    "react-scripts": "0.8.5",
+    "react-test-renderer": "^15.4.2",
+    "sinon": "^1.17.7"
+  },
+  "dependencies": {
+    "axios": "^0.15.3",
+    "react": "^15.4.2",
+    "react-dom": "^15.4.2"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
+  }
+}
